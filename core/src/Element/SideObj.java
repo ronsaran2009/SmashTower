@@ -67,7 +67,7 @@ public class SideObj extends Actor {
                 brakedownround1 = true;
             }
         }
-        batch.draw(SideObj, x,y, w, h);
+        batch.draw(SideObj, x, y, w, h);
         rect.setY(y);
     }
     
