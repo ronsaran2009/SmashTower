@@ -18,9 +18,9 @@ public class SideObj extends Actor {
 
     public SideObj(int random){
         if (random == 0) { // left
-            SideObj = new Texture("condooL.png");
+            SideObj = new Texture("condoleft.png");
             this.x = 0;
-            this.y = 650;
+            this.y = 850;
             this.w = 400;
             this.h = 200;
             this.check = 0;
@@ -28,15 +28,23 @@ public class SideObj extends Actor {
         else if (random == 1) { // center
             SideObj = new Texture("condo.png");
             this.x = 200;
-            this.y = 650;
+            this.y = 850;
             this.w = 200;
             this.h = 200;
             this.check = 1;
         }
-        else if (random == 2) { // right
-            SideObj = new Texture("condooR.png");
+        else if (random == 2) { // center
+            SideObj = new Texture("condo.png");
             this.x = 200;
-            this.y = 650;
+            this.y = 850;
+            this.w = 200;
+            this.h = 200;
+            this.check = 1;
+        }
+        else if (random == 3) { // right
+            SideObj = new Texture("condoright.png");
+            this.x = 200;
+            this.y = 850;
             this.w = 400;
             this.h = 200;
             this.check = 2;

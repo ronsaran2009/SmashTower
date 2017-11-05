@@ -19,10 +19,11 @@ public class Playstate extends State implements InputProcessor {
 	SpriteBatch batch;
 	Stage character;
 	Texture background;
-	SideObj build[] = new SideObj[1000000];
+	SideObj build[] = new SideObj[1000];
 	Stage buildingstage;
 	SpriteBatch errorbatch;
 	Texture error;
+	int seconed = 100;
 	int buildround = 4;
 	int floor;
 	int countfloor = 0;
@@ -43,7 +44,7 @@ public class Playstate extends State implements InputProcessor {
 		character.addActor(bob);
 		////////
 		/// Time///
-		time = new Timer(10);// sec
+		time = new Timer(seconed);// sec
 		timer = new Stage();
 		timer.addActor(time);
 		//////////
@@ -52,19 +53,16 @@ public class Playstate extends State implements InputProcessor {
 		build[1] = new SideObj(1);
 		build[2] = new SideObj(1);
 		build[3] = new SideObj(3);
-		build[4] = new SideObj(0);
 		build[0].y = 50;
 		build[1].y = 250;
 		build[2].y = 450;
 		build[3].y = 650;
-		build[4].y = 850;
-		////////////////////
 		buildingstage = new Stage();
+		////////////////////
 		buildingstage.addActor(build[0]);
 		buildingstage.addActor(build[1]);
 		buildingstage.addActor(build[2]);
 		buildingstage.addActor(build[3]);
-		buildingstage.addActor(build[4]);
 		cam.setToOrtho(false, MyGdxGame.Width / 2, MyGdxGame.Heigh / 2);
 	}
 
@@ -91,12 +89,12 @@ public class Playstate extends State implements InputProcessor {
 		batch.begin();
 		batch.setProjectionMatrix(cam.combined);
 		batch.draw(background, cam.position.x - (cam.viewportWidth / 2), 0);
-		batch.draw(background,0,0,600,800);
+		//batch.draw(background,0,0,600,800);
 		batch.end();
 		///////////////////////
 		character.draw();
-		timer.draw();
 		buildingstage.draw();
+		timer.draw();
 		batch.begin();
 		batch.draw(error, 0, 0, 300, 400);
 		batch.end();
@@ -119,7 +117,6 @@ public class Playstate extends State implements InputProcessor {
 		background.dispose();
 		error.dispose();
 		bob.dispose();
-		timer.dispose();
 		for (int i = 0; i <= 3; i++) {
 			build[i].dispose();
 		}
@@ -149,6 +146,7 @@ public class Playstate extends State implements InputProcessor {
 					build[i].y -= 25;
 					build[i].brakedown = true;
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 0) {
+						gsm.set(new EndState(gsm));
 						error = new Texture("error4.png");
 						/////// SetCondoErrorChange////////
 						build[i].SideObj = new Texture("condo.png");
@@ -185,6 +183,7 @@ public class Playstate extends State implements InputProcessor {
 					build[i].brakedown = true;
 					//////////////////////////////
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 2) {
+						gsm.set(new EndState(gsm));
 						error = new Texture("error4.png");
 						/////// SetCondoErrorChange////////
 						build[i].SideObj = new Texture("condo.png");
@@ -197,6 +196,7 @@ public class Playstate extends State implements InputProcessor {
 						time.check = false; // Stop timer.
 						endgame = false;
 						bob.setCheck(3); // 3 is bob death right.
+
 					}
 				}
 
@@ -206,6 +206,9 @@ public class Playstate extends State implements InputProcessor {
 			}
 			System.out.println("score : " + countfloor);
 		}
+		/*
+		 * for(int i = 0; i < buildround;i++){ build[i].y -= 200; }
+		 */
 		return true;
 	}
 
