@@ -5,20 +5,23 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.MyGdxGame;
 
 public class MenuState extends State implements InputProcessor{
 	
 	private Texture background;
-	private Texture playBtn;
-	boolean click = false;
+	Stage buttonstage;
+	Button play;
+
 
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
 		Gdx.input.setInputProcessor(this);
+		buttonstage = new Stage();
 		background = new Texture("begin.png");
-		playBtn = new Texture("play.png");
-
+		play = new Button("play.png", 200, 50, 200, 200);
+		buttonstage.addActor(play);
 	}
 	
 	@Override
@@ -38,19 +41,17 @@ public class MenuState extends State implements InputProcessor{
 		// TODO Auto-generated method stub
 		sb.begin();
 		sb.draw(background, 0, 0, MyGdxGame.Width, MyGdxGame.Heigh);
-		sb.draw(playBtn, 250, 100, 100, 100);
 		//sb.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
 		sb.end();
-		if (click == true){
-			gsm.set(new SeclectionState(gsm));
-		}
+		buttonstage.draw();
+
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
 		background.dispose();
-		playBtn.dispose();
+		play.dispose();
 		System.out.println("MenuState Disposed");
 	}
 
@@ -73,10 +74,9 @@ public class MenuState extends State implements InputProcessor{
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		System.out.println("input!!!!!!");
 		if (button == Input.Buttons.LEFT)
-			if (screenX >= 250 && screenX <= 250 +100){
-				if (screenY >= 600 && screenY <= 600+ 100){
-					click = true;
-				}
+			if (play.click(screenX, screenY)){
+				gsm.set(new SeclectionState(gsm));
+				System.out.println("SeclectionState");
 			}
 		return true;
 	}
