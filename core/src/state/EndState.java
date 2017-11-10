@@ -1,6 +1,7 @@
 package state;
 
-import com.badlogic.gdx.Gdx;
+import Element.Button;
+import Element.Score;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,15 +14,35 @@ public class EndState extends State implements InputProcessor{
 	Texture endscreen;
 	Button retry;
 	Stage buttonstage;
+	Score score1, score2, score3;
+	Stage scorestage;
+	int allscore;
+	int num1;
+	int num2;
+	int num3;
 	
 	protected EndState(GameStateManager gsm) {
 		super(gsm);
 		// TODO Auto-generated constructor stub
+		allscore = EndState.getScore();
+		System.out.println("getscore : "+allscore);
 		endscreen = new Texture("error4.png");
 		retry = new Button("retry_logo.png",120, 140, 360, 120);
 		buttonstage = new Stage();
 		buttonstage.addActor(retry);
 		cam.setToOrtho(false, MyGdxGame.Width, MyGdxGame.Heigh);
+		num1 = (allscore%10);
+		System.out.println("getNUM1 : "+num1);
+		num2 = (allscore%100)/10;
+		System.out.println("getNUM2 : "+num2);
+		num3 = (allscore%1000)/100;
+		System.out.println("getNUM3 : "+num3);
+		score1 = new Score(num1,360,250, 120,100);
+		score2 = new Score(num2,240,250, 120,100);
+		score3 = new Score(num3,120,250, 120,100);
+		scorestage.addActor(score1);
+		scorestage.addActor(score2);
+		scorestage.addActor(score3);
 	}
 
 	@Override
@@ -32,9 +53,6 @@ public class EndState extends State implements InputProcessor{
 	@Override
 	public void update(float dt) {
 		// TODO Auto-generated method stub
-		if(Gdx.input.justTouched()) {
-			gsm.set(new SeclectionState(gsm));
-		}
 	}
 
 	@Override
@@ -46,12 +64,14 @@ public class EndState extends State implements InputProcessor{
 		//sb.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
 		sb.end();
 		buttonstage.draw();
+		scorestage.draw();
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
 		endscreen.dispose();
+		scorestage.dispose();
 		System.out.println("EndState Disposed");
 	}
 
