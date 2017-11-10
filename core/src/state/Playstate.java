@@ -1,5 +1,8 @@
 package state;
 
+import Element.BOB;
+import Element.SideObj;
+import Element.Timer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
@@ -7,11 +10,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.mygdx.game.MyGdxGame;
-
-import Element.Timer;
-import Element.BOB;
-import Element.SideObj;
 
 public class Playstate extends State implements InputProcessor {
 
@@ -19,53 +17,62 @@ public class Playstate extends State implements InputProcessor {
 	SpriteBatch batch;
 	Stage character;
 	Texture background;
-	SideObj build[] = new SideObj[1000000];
+	SideObj build[] = new SideObj[1500];
 	Stage buildingstage;
 	SpriteBatch errorbatch;
 	Texture error;
+	int seconed = 10;
 	int buildround = 4;
 	int floor;
 	int countfloor = 0;
 	boolean endgame = true;
 	Timer time;
 	Stage timer;
+	int limitfloor;
+    boolean builtmore = true;
+    boolean freedommode ;
+    float timeleft ;
 
-	public Playstate(GameStateManager gsm) {
+
+	public Playstate(GameStateManager gsm, int time, int limitfloor, boolean mode) {
 		super(gsm);
+		this.limitfloor = limitfloor+1;
+		this.freedommode = mode;
 		Gdx.input.setInputProcessor(this);
 		batch = new SpriteBatch();
-		background = new Texture("Bg.png");
+		background = new Texture("bg.jpg");
 		errorbatch = new SpriteBatch();
-		error = new Texture("clearbg.png");
+		error = new Texture("clearbg3.png");
 		/// BOB///
 		bob = new BOB(0);
 		character = new Stage();
 		character.addActor(bob);
 		////////
 		/// Time///
-		time = new Timer(10);// sec
+		seconed = time;
+		this.time = new Timer(seconed);// sec
 		timer = new Stage();
-		timer.addActor(time);
+		timer.addActor(this.time);
 		//////////
 		////// SetCondo/////
 		build[0] = new SideObj(1);
 		build[1] = new SideObj(1);
 		build[2] = new SideObj(1);
-		build[3] = new SideObj(3);
-		build[4] = new SideObj(0);
+		build[3] = new SideObj(2);
+        build[this.limitfloor] = new SideObj(3);
 		build[0].y = 50;
 		build[1].y = 250;
 		build[2].y = 450;
 		build[3].y = 650;
-		build[4].y = 850;
-		////////////////////
+		build[this.limitfloor].y = (200*limitfloor)+50;
 		buildingstage = new Stage();
+		////////////////////
 		buildingstage.addActor(build[0]);
 		buildingstage.addActor(build[1]);
 		buildingstage.addActor(build[2]);
 		buildingstage.addActor(build[3]);
-		buildingstage.addActor(build[4]);
-		cam.setToOrtho(false, MyGdxGame.Width / 2, MyGdxGame.Heigh / 2);
+        buildingstage.addActor(build[this.limitfloor]);
+		//cam.setToOrtho(false, MyGdxGame.Width / 2, MyGdxGame.Heigh / 2);
 	}
 
 	@Override
@@ -77,6 +84,12 @@ public class Playstate extends State implements InputProcessor {
 	@Override
 	public void update(float dt) {
 		// TODO Auto-generated method stub
+        for (int i = 0; i < buildround; i++) {
+            if (build[i].y <=50 && build[i].check == 3){
+                gsm.set(new EndState(gsm));
+            }
+        }
+        timeleft = time.getTime();
 
 	}
 
@@ -89,16 +102,16 @@ public class Playstate extends State implements InputProcessor {
 		////////////////
 		/////// Background///////
 		batch.begin();
-		batch.setProjectionMatrix(cam.combined);
-		batch.draw(background, cam.position.x - (cam.viewportWidth / 2), 0);
-		batch.draw(background,0,0,600,800);
+		//batch.setProjectionMatrix(cam.combined);
+		//batch.draw(background, cam.position.x - (cam.viewportWidth / 2), 0);
+		batch.draw(background,-600,0,1200,1600);
 		batch.end();
 		///////////////////////
 		character.draw();
-		timer.draw();
 		buildingstage.draw();
+		timer.draw();
 		batch.begin();
-		batch.draw(error, 0, 0, 300, 400);
+		batch.draw(error, 0, 0, 600, 800);
 		batch.end();
 		////// TimeOut//////
 		if (time.isEnd() == false) {
@@ -109,6 +122,7 @@ public class Playstate extends State implements InputProcessor {
 			} else {
 				bob.setCheck(3);
 			}
+            gsm.set(new EndState(gsm));
 		}
 		//////////////////////////
 	}
@@ -119,7 +133,6 @@ public class Playstate extends State implements InputProcessor {
 		background.dispose();
 		error.dispose();
 		bob.dispose();
-		timer.dispose();
 		for (int i = 0; i <= 3; i++) {
 			build[i].dispose();
 		}
@@ -130,25 +143,45 @@ public class Playstate extends State implements InputProcessor {
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
 		////// RandomFloorType//////
-		floor = (int) (Math.random() * 4);
+        if (floor == 0 ||floor == 2){
+            floor = 1;
+        }
+        else{
+            floor = (int) (Math.random() * 3);
+        }
+        System.out.println(floor);
 		///////////////////////////
 		if (endgame == true) {
 			if (keycode == Input.Keys.LEFT) {
 				// bob.x = 0;
 				time.setCheck(true);// start timer
 				bob.setCheck(0);// side of bob. True is left.
-				///// CheckForCreateNewNextNoe////
-				if (build[buildround - 1].y <= 650) {
-					build[buildround] = new SideObj(floor);
-					buildingstage.addActor(build[buildround]);
-					buildround += 1;
+				///// CheckForCreateNewNextOne////
+				if (buildround < limitfloor){
+					if (build[buildround - 1].y <= 650) {
+						build[buildround] = new SideObj(floor);
+						buildingstage.addActor(build[buildround]);
+						buildround += 1;
+					}
 				}
+				else{
+				    if (builtmore == true) {
+                        if (build[buildround - 1].y <= 650) {
+                            build[buildround] = new SideObj(3);
+                            buildingstage.addActor(build[buildround]);
+                            buildround += 1;
+                            builtmore = false;
+                        }
+                    }
+                }
+
 				/////////////////////////////////
 				// System.out.println(floor);
 				for (int i = 0; i < buildround; i++) {
 					build[i].y -= 25;
 					build[i].brakedown = true;
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 0) {
+						gsm.set(new EndState(gsm));
 						error = new Texture("error4.png");
 						/////// SetCondoErrorChange////////
 						build[i].SideObj = new Texture("condo.png");
@@ -165,19 +198,34 @@ public class Playstate extends State implements InputProcessor {
 				}
 
 				countfloor += 1;
-				// *********Endlessmode
-				// ti
+				if (freedommode == true) {
+                    // *********Endlessmode
+                    time.time += 0.15; // +time per move.
+                }
 			}
 			if (keycode == Input.Keys.RIGHT) {
 				// bob.x = 400;
 				time.check = true; // start timer.
 				bob.setCheck(1);// side of bob. 1 is right.
 				///// CheckForCreateNewNextNoe////
-				if (build[buildround - 1].y <= 650) {
-					build[buildround] = new SideObj(floor);
-					buildingstage.addActor(build[buildround]);
-					buildround += 1;
+				if (buildround <= limitfloor){
+					if (build[buildround - 1].y <= 650) {
+						build[buildround] = new SideObj(floor);
+						buildingstage.addActor(build[buildround]);
+						buildround += 1;
+					}
 				}
+                else{
+                    if (builtmore == true) {
+                        if (build[buildround - 1].y <= 650) {
+                            build[buildround] = new SideObj(3);
+                            buildingstage.addActor(build[buildround]);
+                            buildround += 1;
+                            builtmore = false;
+                        }
+                    }
+                }
+
 				/////////////////////////////////
 				/////// BuildingBreakdown//////
 				for (int i = 0; i < buildround; i++) {
@@ -185,6 +233,7 @@ public class Playstate extends State implements InputProcessor {
 					build[i].brakedown = true;
 					//////////////////////////////
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 2) {
+						gsm.set(new EndState(gsm));
 						error = new Texture("error4.png");
 						/////// SetCondoErrorChange////////
 						build[i].SideObj = new Texture("condo.png");
@@ -197,15 +246,21 @@ public class Playstate extends State implements InputProcessor {
 						time.check = false; // Stop timer.
 						endgame = false;
 						bob.setCheck(3); // 3 is bob death right.
+
 					}
 				}
 
 				countfloor += 1;// Score
-				// *********Endlessmode
-				// time.time += 0.15; // +time per move.
+                if (freedommode == true) {
+                    // *********Endlessmode
+                    time.time += 0.15; // +time per move.
+                }
 			}
 			System.out.println("score : " + countfloor);
 		}
+		/*
+		 * for(int i = 0; i < buildround;i++){ build[i].y -= 200; }
+		 */
 		return true;
 	}
 

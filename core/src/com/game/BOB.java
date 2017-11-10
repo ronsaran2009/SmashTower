@@ -1,4 +1,4 @@
-package Element;
+package com.game;
 
 
 import com.badlogic.gdx.graphics.Texture;
@@ -16,12 +16,12 @@ public class BOB extends Actor {
 
 
     public BOB(int check) {
-    	if (check == 0){
-            bob = new Texture("1.png");
+        if (check == 0){
+            bob = new Texture("2.png");
             this.x = 0;
         }
         else if (check == 2){
-            bob = new Texture("1.1.png");
+            bob = new Texture("2.png");
             this.x = 0;
         }
         else{
@@ -35,14 +35,13 @@ public class BOB extends Actor {
         batch.draw(bob, x, y, width, height);
         rect.setY(y);
     }
-    
     public void setCheck(int check) { // check left or right character.
-    	if (check == 0){ //0 is left.
-            bob = new Texture("1.png");
+        if (check == 0){ //0 is left.
+            bob = new Texture("2.png");
             this.x = 0;
         }
         else if (check == 1){//1 is right.
-            bob = new Texture("1.1.png");
+            bob = new Texture("man2rights.png");
             this.x = 400;
         }
         else if (check == 2){//2 is dead left.
@@ -54,13 +53,5 @@ public class BOB extends Actor {
             this.x = 400;
         }
         rect = new Rectangle(this.x, y, 200, 200);
-    }
-    
-    public float getx() {
-    	return x;
-    }
-    
-    public void dispose() {
-    	bob.dispose();
     }
 }
