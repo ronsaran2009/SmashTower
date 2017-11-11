@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.MyGdxGame;
 
+import Element.Button;
+
 public class EndState extends State implements InputProcessor{
 	
 	Texture endscreen;
