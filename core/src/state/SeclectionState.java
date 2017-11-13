@@ -1,5 +1,6 @@
 package state;
 
+import Element.Button;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
@@ -86,19 +87,19 @@ public class SeclectionState extends State implements InputProcessor {
         System.out.println("input!!!!!!");
         if (button == Input.Buttons.LEFT)
             if(easy.click(screenX, screenY)){
-                gsm.set(new Playstate(gsm,10,30, false));
+                gsm.set(new Playstate(gsm,10,30, false, 0));
                 System.out.println("EASY");
             }
             else if (normal.click(screenX, screenY)){
-                gsm.set(new Playstate(gsm,10,50, false));
+                gsm.set(new Playstate(gsm,10,50, false, 1));
                 System.out.println("NORMAL");
             }
             else if (hard.click(screenX, screenY)){
-                gsm.set(new Playstate(gsm,10,70, false));
+                gsm.set(new Playstate(gsm,10,70, false,2));
                 System.out.println("HARD");
             }
             else if (freedom.click(screenX, screenY)){
-                gsm.set(new Playstate(gsm,10,1000, true));
+                gsm.set(new Playstate(gsm,10,1000, true, 3));
                 System.out.println("FREEDOM");
             }
         return false;
