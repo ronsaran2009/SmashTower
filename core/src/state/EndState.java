@@ -2,6 +2,7 @@ package state;
 
 import Element.Button;
 import Element.Score;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,6 +25,8 @@ public class EndState extends State implements InputProcessor{
 	protected EndState(GameStateManager gsm) {
 		super(gsm);
 		// TODO Auto-generated constructor stub
+		Gdx.input.setInputProcessor(this);
+
 		allscore = EndState.getScore();
 		System.out.println("getscore : "+allscore);
 		endscreen = new Texture("error4.png");
@@ -31,7 +34,7 @@ public class EndState extends State implements InputProcessor{
 		buttonstage = new Stage();
 		buttonstage.addActor(retry);
 		cam.setToOrtho(false, MyGdxGame.Width, MyGdxGame.Heigh);
-		num1 = (allscore%10);
+		/*num1 = (allscore%10);
 		System.out.println("getNUM1 : "+num1);
 		num2 = (allscore%100)/10;
 		System.out.println("getNUM2 : "+num2);
@@ -42,7 +45,7 @@ public class EndState extends State implements InputProcessor{
 		score3 = new Score(num3,120,250, 120,100);
 		scorestage.addActor(score1);
 		scorestage.addActor(score2);
-		scorestage.addActor(score3);
+		scorestage.addActor(score3);*/
 	}
 
 	@Override
@@ -64,14 +67,14 @@ public class EndState extends State implements InputProcessor{
 		//sb.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
 		sb.end();
 		buttonstage.draw();
-		scorestage.draw();
+		//scorestage.draw();
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
 		endscreen.dispose();
-		scorestage.dispose();
+		//scorestage.dispose();
 		System.out.println("EndState Disposed");
 	}
 

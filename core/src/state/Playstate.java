@@ -32,12 +32,13 @@ public class Playstate extends State implements InputProcessor {
     boolean builtmore = true;
     boolean freedommode ;
     float timeleft ;
+	int level;//0easy 1normal 2hard 3freedom
 
-
-	public Playstate(GameStateManager gsm, int time, int limitfloor, boolean mode) {
+	public Playstate(GameStateManager gsm, int time, int limitfloor, boolean freedommode, int level) {
 		super(gsm);
 		this.limitfloor = limitfloor+1;
-		this.freedommode = mode;
+		this.freedommode = freedommode;
+		this.level = level;
 		Gdx.input.setInputProcessor(this);
 		batch = new SpriteBatch();
 		background = new Texture("bg.jpg");
@@ -55,11 +56,11 @@ public class Playstate extends State implements InputProcessor {
 		timer.addActor(this.time);
 		//////////
 		////// SetCondo/////
-		build[0] = new SideObj(1);
-		build[1] = new SideObj(1);
-		build[2] = new SideObj(1);
-		build[3] = new SideObj(2);
-        build[this.limitfloor] = new SideObj(3);
+		build[0] = new SideObj(1, level);
+		build[1] = new SideObj(1, level);
+		build[2] = new SideObj(1, level);
+		build[3] = new SideObj(2, level);
+        build[this.limitfloor] = new SideObj(3, level);
 		build[0].y = 50;
 		build[1].y = 250;
 		build[2].y = 450;
@@ -160,7 +161,7 @@ public class Playstate extends State implements InputProcessor {
 				///// CheckForCreateNewNextOne////
 				if (buildround < limitfloor){
 					if (build[buildround - 1].y <= 650) {
-						build[buildround] = new SideObj(floor);
+						build[buildround] = new SideObj(floor, level);
 						buildingstage.addActor(build[buildround]);
 						buildround += 1;
 					}
@@ -168,7 +169,7 @@ public class Playstate extends State implements InputProcessor {
 				else{
 				    if (builtmore == true) {
                         if (build[buildround - 1].y <= 650) {
-                            build[buildround] = new SideObj(3);
+                            build[buildround] = new SideObj(3, level);
                             buildingstage.addActor(build[buildround]);
                             buildround += 1;
                             builtmore = false;
@@ -212,7 +213,7 @@ public class Playstate extends State implements InputProcessor {
 				///// CheckForCreateNewNextNoe////
 				if (buildround <= limitfloor){
 					if (build[buildround - 1].y <= 650) {
-						build[buildround] = new SideObj(floor);
+						build[buildround] = new SideObj(floor, level);
 						buildingstage.addActor(build[buildround]);
 						buildround += 1;
 					}
@@ -220,7 +221,7 @@ public class Playstate extends State implements InputProcessor {
                 else{
                     if (builtmore == true) {
                         if (build[buildround - 1].y <= 650) {
-                            build[buildround] = new SideObj(3);
+                            build[buildround] = new SideObj(3, level);
                             buildingstage.addActor(build[buildround]);
                             buildround += 1;
                             builtmore = false;
