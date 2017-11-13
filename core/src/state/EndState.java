@@ -19,8 +19,8 @@ public class EndState extends State implements InputProcessor{
 	protected EndState(GameStateManager gsm) {
 		super(gsm);
 		// TODO Auto-generated constructor stub
-		endscreen = new Texture("error4.png");
-		retry = new Button("retry_logo.png",120, 140, 360, 120);
+		endscreen = new Texture("bgendgame.jpg");
+		retry = new Button("retry.png",200, 150, 200, 200);
 		buttonstage = new Stage();
 		buttonstage.addActor(retry);
 		cam.setToOrtho(false, MyGdxGame.Width, MyGdxGame.Heigh);

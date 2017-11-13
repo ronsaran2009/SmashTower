@@ -21,7 +21,7 @@ public class MenuState extends State implements InputProcessor{
 		super(gsm);
 		Gdx.input.setInputProcessor(this);
 		buttonstage = new Stage();
-		background = new Texture("begin.png");
+		background = new Texture("begin.jpg");
 		play = new Button("play.png", 200, 50, 200, 200);
 		buttonstage.addActor(play);
 	}
