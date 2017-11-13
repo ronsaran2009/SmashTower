@@ -10,6 +10,7 @@ public class Score extends Actor {
     float y ;
     float w ;
     float h ;
+    String name;
     String pic[] = new String[10];//{"num0.png", "num1.png", "num2.png", "num3.png", "num4.png", "num5.png", "num6.png", "num7.png", "num8.png", "num9.png"};
     public Score(int num , float x, float y, float w, float h){
 
@@ -24,14 +25,47 @@ public class Score extends Actor {
         pic[8] = "num8.png";
         pic[9] = "num9.png";
 
-
-        for(int i = 0; i < 5; i++){
-            score = new Texture(pic[i]);
-            if(num == i ){
-                break;
-            }
-
+        if (num == 0){
+            name = pic[0];
+            score = new Texture(name);
         }
+        else if (num == 1){
+            name = pic[1];
+            score = new Texture(name);
+        }
+        else if (num == 2){
+            name = pic[2];
+            score = new Texture(name);
+        }
+        else if (num == 3){
+            name = pic[3];
+            score = new Texture(name);
+        }
+        else if (num == 4){
+            name = pic[4];
+            score = new Texture(name);
+        }
+        else if (num == 5){
+            name = pic[5];
+            score = new Texture(name);
+        }
+        else if (num == 6){
+            name = pic[6];
+            score = new Texture(name);
+        }
+        else if (num == 7){
+            name = pic[7];
+            score = new Texture(name);
+        }
+        else if (num == 8){
+            name = pic[8];
+            score = new Texture(name);
+        }
+        else if (num == 9){
+            name = pic[9];
+            score = new Texture(name);
+        }
+
         this.x = x;
         this.y = y;
         this.w = w;
