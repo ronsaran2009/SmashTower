@@ -9,8 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.MyGdxGame;
 
-import Element.Button;
-
 public class MenuState extends State implements InputProcessor{
 	
 	private Texture background;
@@ -42,6 +40,7 @@ public class MenuState extends State implements InputProcessor{
 	@Override
 	public void render(SpriteBatch sb) {
 		// TODO Auto-generated method stub
+		buttonstage.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),true);
 		sb.begin();
 		sb.draw(background, 0, 0, MyGdxGame.Width, MyGdxGame.Heigh);
 		//sb.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
@@ -96,6 +95,14 @@ public class MenuState extends State implements InputProcessor{
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
+		if (play.click(screenX,screenY)){
+			play = new Button("playdown.png", 200, 50, 200, 200);
+			buttonstage.addActor(play);
+		}
+		else{
+			play = new Button("play.png", 200, 50, 200, 200);
+			buttonstage.addActor(play);
+		}
 		return false;
 	}
 

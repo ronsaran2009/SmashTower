@@ -9,8 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.MyGdxGame;
 
-import Element.Button;
-
 public class SeclectionState extends State implements InputProcessor {
 
     private Texture background;
@@ -49,7 +47,7 @@ public class SeclectionState extends State implements InputProcessor {
 
     @Override
     public void render(SpriteBatch sb) {
-
+        buttonstage.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),true);
         sb.begin();
         sb.draw(background, 0, 0, MyGdxGame.Width, MyGdxGame.Heigh);
         sb.end();
@@ -87,15 +85,15 @@ public class SeclectionState extends State implements InputProcessor {
         System.out.println("Screen cilcked");
         if (button == Input.Buttons.LEFT)
             if(easy.click(screenX, screenY)){
-                gsm.set(new Playstate(gsm,10,30, false, 0));
+                gsm.set(new Playstate(gsm,10,10, false, 0));
                 System.out.println("EASY");
             }
             else if (normal.click(screenX, screenY)){
-                gsm.set(new Playstate(gsm,10,50, false, 1));
+                gsm.set(new Playstate(gsm,10,30, false, 1));
                 System.out.println("NORMAL");
             }
             else if (hard.click(screenX, screenY)){
-                gsm.set(new Playstate(gsm,10,70, false,2));
+                gsm.set(new Playstate(gsm,10,50, false,2));
                 System.out.println("HARD");
             }
             else if (freedom.click(screenX, screenY)){

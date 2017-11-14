@@ -39,6 +39,7 @@ public class Playstate extends State implements InputProcessor {
 		this.limitfloor = limitfloor+1;
 		this.freedommode = freedommode;
 		this.level = level;
+		Playstate.setFreedommode(this.freedommode);
 		Gdx.input.setInputProcessor(this);
 		batch = new SpriteBatch();
 		background = new Texture("bg.jpg");
@@ -56,11 +57,11 @@ public class Playstate extends State implements InputProcessor {
 		timer.addActor(this.time);
 		//////////
 		////// SetCondo/////
-		build[0] = new SideObj(1, level);
-		build[1] = new SideObj(1, level);
-		build[2] = new SideObj(1, level);
-		build[3] = new SideObj(2, level);
-        build[this.limitfloor] = new SideObj(3, level);
+		build[0] = new SideObj(4, this.level);
+		build[1] = new SideObj(1, this.level);
+		build[2] = new SideObj(1, this.level);
+		build[3] = new SideObj(2, this.level);
+        build[this.limitfloor] = new SideObj(3, this.level);
 		build[0].y = 50;
 		build[1].y = 250;
 		build[2].y = 450;
@@ -87,11 +88,14 @@ public class Playstate extends State implements InputProcessor {
 		// TODO Auto-generated method stub
         for (int i = 0; i < buildround; i++) {
             if (build[i].y <=50 && build[i].check == 3){
+
             	gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
+
+				Playstate.setEndbydeath(false);
             }
         }
         timeleft = time.getTime();
-
+		Playstate.setTimeleft(timeleft);
 	}
 
 	@Override
@@ -101,6 +105,11 @@ public class Playstate extends State implements InputProcessor {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		////////////////
+		/////////Set Screan/////////
+		character.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),true);
+		buildingstage.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),true);
+		timer.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),true);
+		//////////////////
 		/////// Background///////
 		batch.begin();
 		//batch.setProjectionMatrix(cam.combined);
@@ -124,7 +133,11 @@ public class Playstate extends State implements InputProcessor {
 				bob.setCheck(3);
 			}
 			Playstate.setScore(countfloor);
+
 			gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
+
+			Playstate.setEndbydeath(true);
+
 		}
 		//////////////////////////
 	}
@@ -185,7 +198,11 @@ public class Playstate extends State implements InputProcessor {
 					build[i].brakedown = true;
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 0) {
 						Playstate.setScore(countfloor);
+
 						gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
+
+						Playstate.setEndbydeath(true);
+
 						error = new Texture("error4.png");
 						/////// SetCondoErrorChange////////
 						build[i].SideObj = new Texture("condo.png");
@@ -198,6 +215,7 @@ public class Playstate extends State implements InputProcessor {
 						time.check = false; // Stop timer.
 						endgame = false;
 						bob.setCheck(2); // 2 is bob death left.
+
 					}
 				}
 
@@ -238,7 +256,10 @@ public class Playstate extends State implements InputProcessor {
 					//////////////////////////////
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 2) {
 						Playstate.setScore(countfloor);
+
 						gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
+
+						Playstate.setEndbydeath(true);
 						error = new Texture("error4.png");
 						/////// SetCondoErrorChange////////
 						build[i].SideObj = new Texture("condo.png");
