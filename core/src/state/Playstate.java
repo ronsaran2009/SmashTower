@@ -90,7 +90,7 @@ public class Playstate extends State implements InputProcessor {
             if (build[i].y <=50 && build[i].check == 3){
 
 				Playstate.setEndbydeath(false);
-				gsm.set(new EndState(gsm));
+				gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
             }
         }
         timeleft = time.getTime();
@@ -133,7 +133,7 @@ public class Playstate extends State implements InputProcessor {
 			}
 			Playstate.setScore(countfloor);
 			Playstate.setEndbydeath(true);
-			gsm.set(new EndState(gsm));
+			gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
 		}
 		//////////////////////////
 	}
@@ -144,6 +144,7 @@ public class Playstate extends State implements InputProcessor {
 		background.dispose();
 		error.dispose();
 		bob.dispose();
+		timer.dispose();
 		for (int i = 0; i <= 3; i++) {
 			build[i].dispose();
 		}
@@ -194,7 +195,7 @@ public class Playstate extends State implements InputProcessor {
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 0) {
 						Playstate.setScore(countfloor);
 						Playstate.setEndbydeath(true);
-						gsm.set(new EndState(gsm));
+						gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
 						error = new Texture("error4.png");
 						/////// SetCondoErrorChange////////
 						build[i].SideObj = new Texture("condo.png");
@@ -249,7 +250,7 @@ public class Playstate extends State implements InputProcessor {
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 2) {
 						Playstate.setScore(countfloor);
 						Playstate.setEndbydeath(true);
-						gsm.set(new EndState(gsm));
+						gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
 						error = new Texture("error4.png");
 						/////// SetCondoErrorChange////////
 						build[i].SideObj = new Texture("condo.png");

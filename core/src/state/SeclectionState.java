@@ -23,10 +23,10 @@ public class SeclectionState extends State implements InputProcessor {
         Gdx.input.setInputProcessor(this);
 
         background = new Texture("menu.jpg");
-        easy = new Button("easy.png",190, 500,200, 100);
-        normal = new Button("normal.png",190, 400, 200, 100);
-        hard = new Button("hard.png",190, 300, 200, 100);
-        freedom = new Button("freedom.png",190 ,200, 200, 100);
+        easy = new Button("easy.png",190, 500,224, 112);
+        normal = new Button("normal.png",190, 375, 224, 112);
+        hard = new Button("hard.png",190, 250, 224, 112);
+        freedom = new Button("freedom.png",190 ,125, 224, 112);
         buttonstage = new Stage();
         buttonstage.addActor(easy);
         buttonstage.addActor(normal);

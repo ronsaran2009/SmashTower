@@ -146,7 +146,7 @@ public class SideObj extends Actor {
                 this.h = 200;
                 this.check = 0;
             } else if (random == 1) { // center
-                SideObj = new Texture("h3-2.png");
+                SideObj = new Texture("h3.png");
                 this.x = 200;
                 this.y = 850;
                 this.w = 200;
