@@ -16,20 +16,32 @@ public class EndState extends State implements InputProcessor{
 	
 	Texture endscreen;
 	Button retry;
+	Button toSelect;
 	Stage buttonstage;
 	Score score1, score2, score3;
 	Stage scorestage;
+//	----For set Playstate------
+	int time;
+	int limitfloor;
+	boolean freedommode;
+	int levelCheck;
+//	---------------------------
 	int allscore;
 	int num1;
 	int num2;
 	int num3;
 	
-	protected EndState(GameStateManager gsm) {
+	protected EndState(GameStateManager gsm, int time, int limitfloor, boolean freedommode ,int levelCheck) {
 		super(gsm);
 		// TODO Auto-generated constructor stub
 
 		endscreen = new Texture("bgendgame.jpg");
-		retry = new Button("retry.png",200, 150, 200, 200);
+		retry = new Button("retry-fix.png",240, 175, 120, 100);
+		toSelect = new Button("baackmenu.png", 260, 75, 80, 80);
+		this.time = time;
+		this.limitfloor = limitfloor;
+		this.freedommode = freedommode;
+		this.levelCheck = levelCheck;
 		Gdx.input.setInputProcessor(this);
 
 		allscore = EndState.getScore();
@@ -37,6 +49,7 @@ public class EndState extends State implements InputProcessor{
 		
 		buttonstage = new Stage();
 		buttonstage.addActor(retry);
+		buttonstage.addActor(toSelect);
 		cam.setToOrtho(false, MyGdxGame.Width, MyGdxGame.Heigh);
 		/*num1 = (allscore%10);
 		System.out.println("getNUM1 : "+num1);
@@ -78,6 +91,9 @@ public class EndState extends State implements InputProcessor{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		endscreen.dispose();
+		retry.dispose();
+		toSelect.dispose();
+		buttonstage.dispose();
 		//scorestage.dispose();
 		System.out.println("EndState Disposed");
 	}
@@ -100,11 +116,17 @@ public class EndState extends State implements InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		System.out.println("input!!!!!!");
-		if (button == Input.Buttons.LEFT)
+		System.out.println("Screen clicked");
+		if (button == Input.Buttons.LEFT) {
 			if(retry.click(screenX, screenY)){
+//				System.out.println("Retry button clicked");
+            	gsm.set(new Playstate(gsm, this.time, this.limitfloor, this.freedommode, this.levelCheck));
+			}else 
+			if(toSelect.click(screenX, screenY)) {
+//				System.out.println("toSelect button clicked");
 				gsm.set(new SeclectionState(gsm));
 			}
+		}
 		return false;
 	}
 
