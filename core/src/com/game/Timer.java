@@ -1,13 +1,13 @@
-package Element;
+package com.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Timer extends Actor{
 
-	public boolean check = false;
+public class Timer extends Actor{
+    boolean check = false;
     Texture bar;
     float x ;
     float y ;
@@ -15,7 +15,7 @@ public class Timer extends Actor{
     float fixw;// final w use for calculate %.
     float h ;
     float timer;// final time.
-    public float time;
+    float time;
     float mid = 150;
     float min = 50;
     boolean end = true;
@@ -60,19 +60,7 @@ public class Timer extends Actor{
 
     }
 
-    public float getTime() {
-        return time;
-    }
-
-    public void setCheck(boolean x) {
-    	check = x;
-    }
-
     public boolean isEnd() {
         return end;
-    }
-    
-    public void dispose() {
-    	bar.dispose();
     }
 }

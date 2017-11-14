@@ -1,4 +1,4 @@
-package Element;
+package state;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;

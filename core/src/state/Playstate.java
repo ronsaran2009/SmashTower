@@ -32,14 +32,12 @@ public class Playstate extends State implements InputProcessor {
     boolean builtmore = true;
     boolean freedommode ;
     float timeleft ;
-	int level;//0easy 1normal 2hard 3freedom
 
-	public Playstate(GameStateManager gsm, int time, int limitfloor, boolean freedommode, int level) {
+
+	public Playstate(GameStateManager gsm, int time, int limitfloor, boolean mode) {
 		super(gsm);
 		this.limitfloor = limitfloor+1;
-		this.freedommode = freedommode;
-		this.level = level;
-		Playstate.setFreedommode(this.freedommode);
+		this.freedommode = mode;
 		Gdx.input.setInputProcessor(this);
 		batch = new SpriteBatch();
 		background = new Texture("bg.jpg");
@@ -57,11 +55,11 @@ public class Playstate extends State implements InputProcessor {
 		timer.addActor(this.time);
 		//////////
 		////// SetCondo/////
-		build[0] = new SideObj(4, this.level);
-		build[1] = new SideObj(1, this.level);
-		build[2] = new SideObj(1, this.level);
-		build[3] = new SideObj(2, this.level);
-        build[this.limitfloor] = new SideObj(3, this.level);
+		build[0] = new SideObj(1);
+		build[1] = new SideObj(1);
+		build[2] = new SideObj(1);
+		build[3] = new SideObj(2);
+        build[this.limitfloor] = new SideObj(3);
 		build[0].y = 50;
 		build[1].y = 250;
 		build[2].y = 450;
@@ -88,13 +86,11 @@ public class Playstate extends State implements InputProcessor {
 		// TODO Auto-generated method stub
         for (int i = 0; i < buildround; i++) {
             if (build[i].y <=50 && build[i].check == 3){
-
-				Playstate.setEndbydeath(false);
-				gsm.set(new EndState(gsm));
+                gsm.set(new EndState(gsm));
             }
         }
         timeleft = time.getTime();
-		Playstate.setTimeleft(timeleft);
+
 	}
 
 	@Override
@@ -104,11 +100,6 @@ public class Playstate extends State implements InputProcessor {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		////////////////
-		/////////Set Screan/////////
-		character.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),true);
-		buildingstage.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),true);
-		timer.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),true);
-		//////////////////
 		/////// Background///////
 		batch.begin();
 		//batch.setProjectionMatrix(cam.combined);
@@ -131,9 +122,7 @@ public class Playstate extends State implements InputProcessor {
 			} else {
 				bob.setCheck(3);
 			}
-			Playstate.setScore(countfloor);
-			Playstate.setEndbydeath(true);
-			gsm.set(new EndState(gsm));
+            gsm.set(new EndState(gsm));
 		}
 		//////////////////////////
 	}
@@ -170,7 +159,7 @@ public class Playstate extends State implements InputProcessor {
 				///// CheckForCreateNewNextOne////
 				if (buildround < limitfloor){
 					if (build[buildround - 1].y <= 650) {
-						build[buildround] = new SideObj(floor, level);
+						build[buildround] = new SideObj(floor);
 						buildingstage.addActor(build[buildround]);
 						buildround += 1;
 					}
@@ -178,7 +167,7 @@ public class Playstate extends State implements InputProcessor {
 				else{
 				    if (builtmore == true) {
                         if (build[buildround - 1].y <= 650) {
-                            build[buildround] = new SideObj(3, level);
+                            build[buildround] = new SideObj(3);
                             buildingstage.addActor(build[buildround]);
                             buildround += 1;
                             builtmore = false;
@@ -192,8 +181,6 @@ public class Playstate extends State implements InputProcessor {
 					build[i].y -= 25;
 					build[i].brakedown = true;
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 0) {
-						Playstate.setScore(countfloor);
-						Playstate.setEndbydeath(true);
 						gsm.set(new EndState(gsm));
 						error = new Texture("error4.png");
 						/////// SetCondoErrorChange////////
@@ -207,7 +194,6 @@ public class Playstate extends State implements InputProcessor {
 						time.check = false; // Stop timer.
 						endgame = false;
 						bob.setCheck(2); // 2 is bob death left.
-
 					}
 				}
 
@@ -224,7 +210,7 @@ public class Playstate extends State implements InputProcessor {
 				///// CheckForCreateNewNextNoe////
 				if (buildround <= limitfloor){
 					if (build[buildround - 1].y <= 650) {
-						build[buildround] = new SideObj(floor, level);
+						build[buildround] = new SideObj(floor);
 						buildingstage.addActor(build[buildround]);
 						buildround += 1;
 					}
@@ -232,7 +218,7 @@ public class Playstate extends State implements InputProcessor {
                 else{
                     if (builtmore == true) {
                         if (build[buildround - 1].y <= 650) {
-                            build[buildround] = new SideObj(3, level);
+                            build[buildround] = new SideObj(3);
                             buildingstage.addActor(build[buildround]);
                             buildround += 1;
                             builtmore = false;
@@ -247,8 +233,6 @@ public class Playstate extends State implements InputProcessor {
 					build[i].brakedown = true;
 					//////////////////////////////
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 2) {
-						Playstate.setScore(countfloor);
-						Playstate.setEndbydeath(true);
 						gsm.set(new EndState(gsm));
 						error = new Texture("error4.png");
 						/////// SetCondoErrorChange////////
