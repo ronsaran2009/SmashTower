@@ -74,7 +74,7 @@ public class MenuState extends State implements InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		System.out.println("input!!!!!!");
+		System.out.println("Screen clicked");
 		if (button == Input.Buttons.LEFT)
 			if (play.click(screenX, screenY)){
 				gsm.set(new SeclectionState(gsm));

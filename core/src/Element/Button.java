@@ -24,6 +24,17 @@ public class Button extends Actor {
         if (inputX >= x && inputX <= x + w) {
             if (inputY >= 800 - y - h && inputY <= 800 - y) {
                 check = true;
+//              ----Tell everything about mouse input to Debug--------
+//				System.out.println(inputX);    
+//				System.out.println(inputY);		
+//				System.out.println("positionX : "+x);
+//				System.out.println("postionY : "+y);
+//				System.out.println("Width : "+w);
+//				System.out.println("Height : "+h);
+//				System.out.println(800-x+w);
+//				System.out.println(800-y);
+//				System.out.println(800-y-h);
+//              -------------------------------------------------------
             }
         }
         return check;
@@ -34,6 +45,6 @@ public class Button extends Actor {
     }
 
     public void dispose() {
-        button.dispose();
+        button.dispose();;
     }
 }
