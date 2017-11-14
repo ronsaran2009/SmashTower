@@ -10,7 +10,10 @@ public abstract class State {
 	protected Vector3 mouse;
 	protected GameStateManager gsm;
 	public static int score;
-	
+	public static float timeleft;
+	public static boolean endbydeath = false;
+	public static boolean freedommode = false;
+
 	protected State(GameStateManager gsm) {
 		this.gsm = gsm;
 		cam = new OrthographicCamera();
@@ -23,6 +26,30 @@ public abstract class State {
 
 	public static int getScore() {
 		return score;
+	}
+
+	public static float getTimeleft() {
+		return timeleft;
+	}
+
+	public static void setTimeleft(float timeleft) {
+		State.timeleft = timeleft;
+	}
+
+	public static boolean isEndbydeath() {
+		return endbydeath;
+	}
+
+	public static void setEndbydeath(boolean endbydeath) {
+		State.endbydeath = endbydeath;
+	}
+
+	public static boolean isFreedommode() {
+		return freedommode;
+	}
+
+	public static void setFreedommode(boolean freedommode) {
+		State.freedommode = freedommode;
 	}
 
 	public abstract void handleinput();
