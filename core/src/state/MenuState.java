@@ -95,6 +95,14 @@ public class MenuState extends State implements InputProcessor{
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
+		if (play.click(screenX,screenY)){
+			play = new Button("playdown.png", 200, 50, 200, 200);
+			buttonstage.addActor(play);
+		}
+		else{
+			play = new Button("play.png", 200, 50, 200, 200);
+			buttonstage.addActor(play);
+		}
 		return false;
 	}
 
