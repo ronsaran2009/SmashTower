@@ -89,9 +89,8 @@ public class Playstate extends State implements InputProcessor {
         for (int i = 0; i < buildround; i++) {
             if (build[i].y <=50 && build[i].check == 3){
 
-            	gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
-
 				Playstate.setEndbydeath(false);
+				gsm.set(new EndState(gsm));
             }
         }
         timeleft = time.getTime();
@@ -133,11 +132,8 @@ public class Playstate extends State implements InputProcessor {
 				bob.setCheck(3);
 			}
 			Playstate.setScore(countfloor);
-
-			gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
-
 			Playstate.setEndbydeath(true);
-
+			gsm.set(new EndState(gsm));
 		}
 		//////////////////////////
 	}
@@ -148,7 +144,6 @@ public class Playstate extends State implements InputProcessor {
 		background.dispose();
 		error.dispose();
 		bob.dispose();
-		timer.dispose();
 		for (int i = 0; i <= 3; i++) {
 			build[i].dispose();
 		}
@@ -198,11 +193,8 @@ public class Playstate extends State implements InputProcessor {
 					build[i].brakedown = true;
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 0) {
 						Playstate.setScore(countfloor);
-
-						gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
-
 						Playstate.setEndbydeath(true);
-
+						gsm.set(new EndState(gsm));
 						error = new Texture("error4.png");
 						/////// SetCondoErrorChange////////
 						build[i].SideObj = new Texture("condo.png");
@@ -256,10 +248,8 @@ public class Playstate extends State implements InputProcessor {
 					//////////////////////////////
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 2) {
 						Playstate.setScore(countfloor);
-
-						gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
-
 						Playstate.setEndbydeath(true);
+						gsm.set(new EndState(gsm));
 						error = new Texture("error4.png");
 						/////// SetCondoErrorChange////////
 						build[i].SideObj = new Texture("condo.png");
