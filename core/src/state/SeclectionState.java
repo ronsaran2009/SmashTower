@@ -22,11 +22,11 @@ public class SeclectionState extends State implements InputProcessor {
         super(gsm);
         Gdx.input.setInputProcessor(this);
 
-        background = new Texture("bg.jpg");
-        easy = new Button("buttonEasy2.png",150, 550,300, 100);
-        normal = new Button("buttonnormal2.png",150, 400, 300, 100);
-        hard = new Button("buttonhard2.png",150, 250, 300, 100);
-        freedom = new Button("buttonfreedom2.png",150 ,100, 300, 100);
+        background = new Texture("menu.jpg");
+        easy = new Button("easy.png",190, 500,200, 100);
+        normal = new Button("normal.png",190, 400, 200, 100);
+        hard = new Button("hard.png",190, 300, 200, 100);
+        freedom = new Button("freedom.png",190 ,200, 200, 100);
         buttonstage = new Stage();
         buttonstage.addActor(easy);
         buttonstage.addActor(normal);
@@ -47,7 +47,7 @@ public class SeclectionState extends State implements InputProcessor {
 
     @Override
     public void render(SpriteBatch sb) {
-
+        buttonstage.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),true);
         sb.begin();
         sb.draw(background, 0, 0, MyGdxGame.Width, MyGdxGame.Heigh);
         sb.end();
@@ -85,15 +85,15 @@ public class SeclectionState extends State implements InputProcessor {
         System.out.println("input!!!!!!");
         if (button == Input.Buttons.LEFT)
             if(easy.click(screenX, screenY)){
-                gsm.set(new Playstate(gsm,10,30, false, 0));
+                gsm.set(new Playstate(gsm,10,10, false, 0));
                 System.out.println("EASY");
             }
             else if (normal.click(screenX, screenY)){
-                gsm.set(new Playstate(gsm,10,50, false, 1));
+                gsm.set(new Playstate(gsm,10,30, false, 1));
                 System.out.println("NORMAL");
             }
             else if (hard.click(screenX, screenY)){
-                gsm.set(new Playstate(gsm,10,70, false,2));
+                gsm.set(new Playstate(gsm,10,50, false,2));
                 System.out.println("HARD");
             }
             else if (freedom.click(screenX, screenY)){

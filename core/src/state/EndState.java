@@ -15,25 +15,50 @@ public class EndState extends State implements InputProcessor{
 	Texture endscreen;
 	Button retry;
 	Stage buttonstage;
+	Texture star;
 	Score score1, score2, score3;
 	Stage scorestage;
 	int allscore;
 	int num1;
 	int num2;
 	int num3;
+	float timeleft;
+
 	
 	protected EndState(GameStateManager gsm) {
 		super(gsm);
 		// TODO Auto-generated constructor stub
+		timeleft = EndState.getTimeleft();
+		endscreen = new Texture("bgendgame.jpg");
+		retry = new Button("retry.png",200, 150, 200, 200);
 		Gdx.input.setInputProcessor(this);
 
 		allscore = EndState.getScore();
 		System.out.println("getscore : "+allscore);
-		endscreen = new Texture("error4.png");
-		retry = new Button("retry_logo.png",120, 140, 360, 120);
+		
 		buttonstage = new Stage();
 		buttonstage.addActor(retry);
 		cam.setToOrtho(false, MyGdxGame.Width, MyGdxGame.Heigh);
+		if (isEndbydeath() == true){//0star(no star)
+			star = new Texture("0s.png");
+			if (isFreedommode() == true){
+				//Show score
+			}
+		}
+		else{
+			if (timeleft >= 3){//3star
+				star = new Texture("3s.png");
+			}
+			else if (timeleft >= 1 && timeleft < 3){//2star
+				star = new Texture("2s.png");
+			}
+			else if (timeleft >= 0 && timeleft < 1){//1star
+				star = new Texture("1s.png");
+			}
+		}
+
+
+
 		/*num1 = (allscore%10);
 		System.out.println("getNUM1 : "+num1);
 		num2 = (allscore%100)/10;
@@ -61,9 +86,11 @@ public class EndState extends State implements InputProcessor{
 	@Override
 	public void render(SpriteBatch sb) {
 		// TODO Auto-generated method stub
+		buttonstage.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),true);
 		sb.begin();
 		sb.setProjectionMatrix(cam.combined);
 		sb.draw(endscreen, 0, 0, 600, 800);
+		sb.draw(star, 150, 350, 300, 170);
 		//sb.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
 		sb.end();
 		buttonstage.draw();
