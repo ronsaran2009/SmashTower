@@ -175,7 +175,7 @@ public class EndState extends State implements InputProcessor{
 		}
 		else if (toSelect.click(screenX,screenY)){
 			retry = new Button("retry.png",240, 175, 120, 100);
-			toSelect = new Button("baackmenudown	.png", 260, 75, 80, 80);
+			toSelect = new Button("baackmenudown.png", 260, 75, 80, 80);
 			buttonstage.addActor(retry);
 			buttonstage.addActor(toSelect);
 		}
