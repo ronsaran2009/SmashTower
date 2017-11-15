@@ -35,6 +35,7 @@ public class Playstate extends State implements InputProcessor {
     boolean freedommode ;
     float timeleft ;
 	int level;//0easy 1normal 2hard 3freedom
+	Texture bom;
 
 	public Playstate(GameStateManager gsm, int time, int limitfloor, boolean freedommode, int level) {
 		super(gsm);
@@ -60,6 +61,7 @@ public class Playstate extends State implements InputProcessor {
 		timebg = new Texture("bartime.png");
 		timewhitebg = new Texture("bartimebg.png");
 		//////////
+		bom = new Texture("comic-boom-explosion-2-8-1.png");
 		////// SetCondo/////
 		build[0] = new SideObj(4, this.level);
 		build[1] = new SideObj(1, this.level);
@@ -92,7 +94,7 @@ public class Playstate extends State implements InputProcessor {
 		// TODO Auto-generated method stub
         for (int i = 0; i < buildround; i++) {
             if (build[i].y <=50 && build[i].check == 3){
-
+				Playstate.setTimeleft(timeleft);
 				Playstate.setEndbydeath(false);
 				gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
             }
@@ -135,6 +137,11 @@ public class Playstate extends State implements InputProcessor {
 		batch.draw(timebg, 0, 726, 600, 74);
 		batch.draw(error, 0, 0, 600, 800);
 		batch.end();
+		if (build[countfloor].brakedown == true){
+			batch.begin();
+			batch.draw(bom, 50, -75, 475, 450);
+			batch.end();
+		}
 		////// TimeOut//////
 		if (time.isEnd() == false) {
 			endgame = false;
@@ -203,6 +210,9 @@ public class Playstate extends State implements InputProcessor {
 				// System.out.println(floor);
 				for (int i = 0; i < buildround; i++) {
 					build[i].y -= 25;
+
+
+
 					build[i].brakedown = true;
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 0) {
 						Playstate.setScore(countfloor);

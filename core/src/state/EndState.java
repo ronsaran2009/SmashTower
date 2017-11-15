@@ -46,6 +46,17 @@ public class EndState extends State implements InputProcessor{
 		allscore = EndState.getScore();
 		System.out.println("getscore : "+allscore);
 
+		num1 = (allscore%10);
+		num2 = (allscore%100)/10;
+		num3 = allscore/100;
+		scorestage = new Stage();
+		score1 = new Score(num1,150,350,100,170);
+		score2 = new Score(num2,250,350,100,170);
+		score3 = new Score(num3,350,350,100,170);
+		scorestage.addActor(score1);
+		scorestage.addActor(score2);
+		scorestage.addActor(score3);
+
 		buttonstage = new Stage();
 		buttonstage.addActor(retry);
 		buttonstage.addActor(toSelect);
@@ -67,6 +78,7 @@ public class EndState extends State implements InputProcessor{
 				star = new Texture("1s.png");
 			}
 		}
+
 	}
 
 	@Override
@@ -85,11 +97,18 @@ public class EndState extends State implements InputProcessor{
 		sb.begin();
 		sb.setProjectionMatrix(cam.combined);
 		sb.draw(endscreen, 0, 0, 600, 800);
-		sb.draw(star, 150, 350, 300, 170);
-		//sb.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
 		sb.end();
+		if(isFreedommode()){
+			scorestage.draw();
+		}
+		else {
+			sb.begin();
+			sb.draw(star, 150, 350, 300, 170);
+			sb.end();
+		}
+		//sb.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
 		buttonstage.draw();
-		//scorestage.draw();
+
 	}
 
 	@Override
@@ -148,6 +167,25 @@ public class EndState extends State implements InputProcessor{
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
+		if (retry.click(screenX,screenY)){
+			retry = new Button("retrydown.png",240, 175, 120, 100);
+			toSelect = new Button("baackmenu.png", 260, 75, 80, 80);
+			buttonstage.addActor(retry);
+			buttonstage.addActor(toSelect);
+		}
+		else if (toSelect.click(screenX,screenY)){
+			retry = new Button("retry.png",240, 175, 120, 100);
+			toSelect = new Button("baackmenudown	.png", 260, 75, 80, 80);
+			buttonstage.addActor(retry);
+			buttonstage.addActor(toSelect);
+		}
+		else{
+			retry = new Button("retry.png",240, 175, 120, 100);
+			toSelect = new Button("baackmenu.png", 260, 75, 80, 80);
+			buttonstage.addActor(retry);
+			buttonstage.addActor(toSelect);
+		}
+
 		return false;
 	}
 
