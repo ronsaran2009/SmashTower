@@ -39,11 +39,11 @@ public class Timer extends Actor{
 
             if (w <= min) {
                 bar = new Texture("mintimebar.png");// Red bar.
-                System.out.println("red : "+time);
+                //System.out.println("red : "+time);
             }
             else if (w <= mid){
                 bar = new Texture("medtimebar.png");// Yellow bar.
-                System.out.println("Yello : "+time);
+                //System.out.println("Yello : "+time);
             }
             else if (w <= fixw){
                 bar = new Texture("fulltimebar.png");// Green bar.
