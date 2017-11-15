@@ -44,7 +44,7 @@ public class Playstate extends State implements InputProcessor {
 		Playstate.setFreedommode(this.freedommode);
 		Gdx.input.setInputProcessor(this);
 		batch = new SpriteBatch();
-		background = new Texture("bg.jpg");
+		background = new Texture("newbg2.png");
 		errorbatch = new SpriteBatch();
 		error = new Texture("clearbg3.png");
 		/// BOB///
@@ -113,7 +113,7 @@ public class Playstate extends State implements InputProcessor {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		////////////////
-		/////////Set Screan/////////
+		/////////Set Screen/////////
 		character.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),true);
 		buildingstage.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),true);
 		timer.getViewport().update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),true);
@@ -157,8 +157,11 @@ public class Playstate extends State implements InputProcessor {
 		background.dispose();
 		error.dispose();
 		bob.dispose();
-		for (int i = 0; i <= 3; i++) {
-			build[i].dispose();
+		for (SideObj i: build) {
+			if(i != null) {
+				i.dispose();
+				System.out.println("Dispose Building");
+			}
 		}
 		System.out.println("PlayState Disposed");
 	}
