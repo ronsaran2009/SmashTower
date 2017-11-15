@@ -22,7 +22,7 @@ public class Timer extends Actor{
 
     public Timer (float time){
         bar = new Texture("fulltimebar.png");
-        this.x = 50;
+        this.x = 82;
         this.y = 750;
         this.w = 500;
         this.h = 25;
