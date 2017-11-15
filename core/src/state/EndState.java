@@ -11,24 +11,25 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.MyGdxGame;
 
 public class EndState extends State implements InputProcessor{
-	
+
 	Texture endscreen;
 	Button retry;
 	Button toSelect;
 	Stage buttonstage;
 	Score score1, score2, score3;
 	Stage scorestage;
-//	----For set Playstate------
+	//	----For set Playstate------
 	int time;
 	int limitfloor;
 	boolean freedommode;
 	int levelCheck;
-//	---------------------------
+	//	---------------------------
 	int allscore;
 	int num1;
 	int num2;
 	int num3;
-	
+	Texture star;
+
 	protected EndState(GameStateManager gsm, int time, int limitfloor, boolean freedommode ,int levelCheck) {
 		super(gsm);
 		// TODO Auto-generated constructor stub
@@ -44,23 +45,28 @@ public class EndState extends State implements InputProcessor{
 
 		allscore = EndState.getScore();
 		System.out.println("getscore : "+allscore);
-		
+
 		buttonstage = new Stage();
 		buttonstage.addActor(retry);
 		buttonstage.addActor(toSelect);
 		cam.setToOrtho(false, MyGdxGame.Width, MyGdxGame.Heigh);
-		/*num1 = (allscore%10);
-		System.out.println("getNUM1 : "+num1);
-		num2 = (allscore%100)/10;
-		System.out.println("getNUM2 : "+num2);
-		num3 = (allscore%1000)/100;
-		System.out.println("getNUM3 : "+num3);
-		score1 = new Score(num1,360,250, 120,100);
-		score2 = new Score(num2,240,250, 120,100);
-		score3 = new Score(num3,120,250, 120,100);
-		scorestage.addActor(score1);
-		scorestage.addActor(score2);
-		scorestage.addActor(score3);*/
+		if (isEndbydeath() == true){//0star(no star)
+			star = new Texture("0s.png");
+			if (isFreedommode() == true){
+				//Show score
+			}
+		}
+		else{
+			if (timeleft >= 3){//3star
+				star = new Texture("3s.png");
+			}
+			else if (timeleft >= 1 && timeleft < 3){//2star
+				star = new Texture("2s.png");
+			}
+			else if (timeleft >= 0 && timeleft < 1){//1star
+				star = new Texture("1s.png");
+			}
+		}
 	}
 
 	@Override
@@ -79,6 +85,7 @@ public class EndState extends State implements InputProcessor{
 		sb.begin();
 		sb.setProjectionMatrix(cam.combined);
 		sb.draw(endscreen, 0, 0, 600, 800);
+		sb.draw(star, 150, 350, 300, 170);
 		//sb.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
 		sb.end();
 		buttonstage.draw();
@@ -92,6 +99,7 @@ public class EndState extends State implements InputProcessor{
 		retry.dispose();
 		toSelect.dispose();
 		buttonstage.dispose();
+		star.dispose();
 		//scorestage.dispose();
 		System.out.println("EndState Disposed");
 	}
@@ -118,8 +126,8 @@ public class EndState extends State implements InputProcessor{
 		if (button == Input.Buttons.LEFT) {
 			if(retry.click(screenX, screenY)){
 //				System.out.println("Retry button clicked");
-            	gsm.set(new Playstate(gsm, this.time, this.limitfloor, this.freedommode, this.levelCheck));
-			}else 
+				gsm.set(new Playstate(gsm, this.time, this.limitfloor, this.freedommode, this.levelCheck));
+			}else
 			if(toSelect.click(screenX, screenY)) {
 //				System.out.println("toSelect button clicked");
 				gsm.set(new SeclectionState(gsm));

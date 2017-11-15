@@ -95,6 +95,11 @@ public class Playstate extends State implements InputProcessor {
         }
         timeleft = time.getTime();
 		Playstate.setTimeleft(timeleft);
+		for(int i = 0; i < buildround; i++){
+			if (build[i].y < -100){
+				build[i].remove();
+			}
+		}
 	}
 
 	@Override
@@ -144,7 +149,6 @@ public class Playstate extends State implements InputProcessor {
 		background.dispose();
 		error.dispose();
 		bob.dispose();
-		timer.dispose();
 		for (int i = 0; i <= 3; i++) {
 			build[i].dispose();
 		}
