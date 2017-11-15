@@ -115,6 +115,56 @@ public class SeclectionState extends State implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+        if (easy.click(screenX,screenY)){
+            easy = new Button("easydown.png",190, 500,224, 112);
+            normal = new Button("normal.png",190, 375, 224, 112);
+            hard = new Button("hard.png",190, 250, 224, 112);
+            freedom = new Button("freedom.png",190 ,125, 224, 112);
+            buttonstage.addActor(easy);
+            buttonstage.addActor(normal);
+            buttonstage.addActor(hard);
+            buttonstage.addActor(freedom);
+        }
+        else if (normal.click(screenX,screenY)){
+            easy = new Button("easy.png",190, 500,224, 112);
+            normal = new Button("normaldown.png",190, 375, 224, 112);
+            hard = new Button("hard.png",190, 250, 224, 112);
+            freedom = new Button("freedom.png",190 ,125, 224, 112);
+            buttonstage.addActor(easy);
+            buttonstage.addActor(normal);
+            buttonstage.addActor(hard);
+            buttonstage.addActor(freedom);
+        }
+        else if (hard.click(screenX,screenY)){
+            easy = new Button("easy.png",190, 500,224, 112);
+            normal = new Button("normal.png",190, 375, 224, 112);
+            hard = new Button("harddown.png",190, 250, 224, 112);
+            freedom = new Button("freedom.png",190 ,125, 224, 112);
+            buttonstage.addActor(easy);
+            buttonstage.addActor(normal);
+            buttonstage.addActor(hard);
+            buttonstage.addActor(freedom);
+        }
+        else if (freedom.click(screenX,screenY)){
+            easy = new Button("easy.png",190, 500,224, 112);
+            normal = new Button("normal.png",190, 375, 224, 112);
+            hard = new Button("hard.png",190, 250, 224, 112);
+            freedom = new Button("freedomdown.png",190 ,125, 224, 112);
+            buttonstage.addActor(easy);
+            buttonstage.addActor(normal);
+            buttonstage.addActor(hard);
+            buttonstage.addActor(freedom);
+        }
+        else{
+            easy = new Button("easy.png",190, 500,224, 112);
+            normal = new Button("normal.png",190, 375, 224, 112);
+            hard = new Button("hard.png",190, 250, 224, 112);
+            freedom = new Button("freedom.png",190 ,125, 224, 112);
+            buttonstage.addActor(easy);
+            buttonstage.addActor(normal);
+            buttonstage.addActor(hard);
+            buttonstage.addActor(freedom);
+        }
         return false;
     }
 
