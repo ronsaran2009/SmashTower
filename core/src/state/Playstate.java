@@ -28,6 +28,8 @@ public class Playstate extends State implements InputProcessor {
 	boolean endgame = true;
 	Timer time;
 	Stage timer;
+	Texture timebg;
+	Texture timewhitebg;
 	int limitfloor;
     boolean builtmore = true;
     boolean freedommode ;
@@ -55,6 +57,8 @@ public class Playstate extends State implements InputProcessor {
 		this.time = new Timer(seconed);// sec
 		timer = new Stage();
 		timer.addActor(this.time);
+		timebg = new Texture("bartime.png");
+		timewhitebg = new Texture("bartimebg.png");
 		//////////
 		////// SetCondo/////
 		build[0] = new SideObj(4, this.level);
@@ -123,8 +127,12 @@ public class Playstate extends State implements InputProcessor {
 		///////////////////////
 		character.draw();
 		buildingstage.draw();
+		batch.begin();
+		batch.draw(timewhitebg, 82, 750, 500, 25);
+		batch.end();
 		timer.draw();
 		batch.begin();
+		batch.draw(timebg, 0, 726, 600, 74);
 		batch.draw(error, 0, 0, 600, 800);
 		batch.end();
 		////// TimeOut//////
