@@ -8,6 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class BOB extends Actor {
     Texture bob;
+    Texture bobLeft;
+    Texture bobRight;
+    Texture graveLeft;
+    Texture graveRight;
     float x;
     float y = 50;
     float width = 200;
@@ -16,16 +20,20 @@ public class BOB extends Actor {
 
 
     public BOB(int check) {
+    	bobLeft = new Texture("1.png");
+        bobRight = new Texture("1.1.png");
+        graveLeft = new Texture("gravestoneleft.png");
+        graveRight = new Texture("gravestoneright.png");
     	if (check == 0){
-            bob = new Texture("1.png");
+            bob = bobLeft;
             this.x = 0;
         }
         else if (check == 2){
-            bob = new Texture("1.1.png");
+            bob = bobRight;
             this.x = 0;
         }
         else{
-            bob = new Texture("gravestoneleft.png");
+            bob = graveLeft;
             this.x = 400;
         }
         rect = new Rectangle(this.x, y, 200, 200);
@@ -38,19 +46,19 @@ public class BOB extends Actor {
     
     public void setCheck(int check) { // check left or right character.
     	if (check == 0){ //0 is left.
-            bob = new Texture("1.png");
+            bob = bobLeft;
             this.x = 0;
         }
         else if (check == 1){//1 is right.
-            bob = new Texture("1.1.png");
+            bob = bobRight;
             this.x = 400;
         }
         else if (check == 2){//2 is dead left.
-            bob = new Texture("gravestoneleft.png");
+            bob = graveLeft;
             this.x = 0;
         }
         else if (check == 3){//3 is dead right.
-            bob = new Texture("gravestoneright.png");
+            bob = graveRight;
             this.x = 400;
         }
         rect = new Rectangle(this.x, y, 200, 200);

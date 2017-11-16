@@ -9,6 +9,9 @@ public class Timer extends Actor{
 
 	public boolean check = false;
     Texture bar;
+    Texture minBar;
+    Texture midBar;
+    Texture fullBar;
     float x ;
     float y ;
     float w ;
@@ -22,6 +25,9 @@ public class Timer extends Actor{
 
     public Timer (float time){
         bar = new Texture("fulltimebar.png");
+        minBar = new Texture("mintimebar.png");
+        midBar = new Texture("medtimebar.png");
+        fullBar = new Texture("fulltimebar.png");
         this.x = 82;
         this.y = 750;
         this.w = 500;
@@ -38,15 +44,15 @@ public class Timer extends Actor{
             w = (time/timer)*fixw; // find % of bar.
 
             if (w <= min) {
-                bar = new Texture("mintimebar.png");// Red bar.
+                bar = minBar;// Red bar.
                 //System.out.println("red : "+time);
             }
             else if (w <= mid){
-                bar = new Texture("medtimebar.png");// Yellow bar.
+                bar = midBar;// Yellow bar.
                 //System.out.println("Yello : "+time);
             }
             else if (w <= fixw){
-                bar = new Texture("fulltimebar.png");// Green bar.
+                bar = fullBar;// Green bar.
             }
             if (w >= fixw){ // if bar over maximum.
                 w = fixw;

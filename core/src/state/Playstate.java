@@ -19,7 +19,6 @@ public class Playstate extends State implements InputProcessor {
 	Texture background;
 	SideObj build[] = new SideObj[1500];
 	Stage buildingstage;
-	SpriteBatch errorbatch;
 	Texture error;
 	int seconed = 10;
 	int buildround = 4;
@@ -46,7 +45,6 @@ public class Playstate extends State implements InputProcessor {
 		Gdx.input.setInputProcessor(this);
 		batch = new SpriteBatch();
 		background = new Texture("newbg2.png");
-		errorbatch = new SpriteBatch();
 		error = new Texture("clearbg3.png");
 		/// BOB///
 		bob = new BOB(0);

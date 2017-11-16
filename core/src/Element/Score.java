@@ -12,6 +12,7 @@ public class Score extends Actor {
     float h ;
     String name;
     String pic[] = new String[10];//{"num0.png", "num1.png", "num2.png", "num3.png", "num4.png", "num5.png", "num6.png", "num7.png", "num8.png", "num9.png"};
+    
     public Score(int num , float x, float y, float w, float h){
 
         pic[0] = "comic-boom-explosion-2-7.png";
