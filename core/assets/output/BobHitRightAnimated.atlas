@@ -1,0 +1,24 @@
+
+BobHitRightAnimated.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bobright1
+  rotate: false
+  xy: 1, 1
+  size: 661, 661
+  orig: 661, 661
+  offset: 0, 0
+  index: -1
+
+BobHitRightAnimated2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bobright2
+  rotate: false
+  xy: 1, 1
+  size: 661, 661
+  orig: 661, 661
+  offset: 0, 0
+  index: -1
