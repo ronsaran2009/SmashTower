@@ -3,6 +3,9 @@ package state;
 import Element.BOB;
 import Element.SideObj;
 import Element.Timer;
+
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
@@ -18,6 +21,7 @@ public class Playstate extends State implements InputProcessor {
 	Stage character;
 	Texture background;
 	SideObj build[] = new SideObj[1500];
+	ArrayList<SideObj> testBuild = new ArrayList<SideObj>();
 	Stage buildingstage;
 	Texture error;
 	int seconed = 10;
@@ -165,8 +169,8 @@ public class Playstate extends State implements InputProcessor {
 		for (SideObj i: build) {
 			if(i != null) {
 				i.dispose();
-				System.out.println("Dispose Building");
 			}
+			System.out.println("Dispose Building");
 		}
 		System.out.println("PlayState Disposed");
 	}
