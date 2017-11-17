@@ -62,6 +62,8 @@ public class SeclectionState extends State implements InputProcessor {
         normal.dispose();
         hard.dispose();
         freedom.dispose();
+        buttonstage.clear();
+		buttonstage.dispose();
         System.out.println("SeclectionState Disposed");
     }
 
