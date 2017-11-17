@@ -19,7 +19,6 @@ public class Playstate extends State implements InputProcessor {
 	Texture background;
 	SideObj build[] = new SideObj[1500];
 	Stage buildingstage;
-	SpriteBatch errorbatch;
 	Texture error;
 	int seconed = 10;
 	int buildround = 4;
@@ -46,7 +45,6 @@ public class Playstate extends State implements InputProcessor {
 		Gdx.input.setInputProcessor(this);
 		batch = new SpriteBatch();
 		background = new Texture("newbg2.png");
-		errorbatch = new SpriteBatch();
 		error = new Texture("clearbg3.png");
 		/// BOB///
 		bob = new BOB(0);
@@ -96,10 +94,12 @@ public class Playstate extends State implements InputProcessor {
             if (build[i].y <=50 && build[i].check == 3){
 				Playstate.setTimeleft(timeleft);
 				Playstate.setEndbydeath(false);
+				Playstate.setScore(countfloor);
 				gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
             }
         }
         timeleft = time.getTime();
+		Playstate.setScore(countfloor);
 		Playstate.setTimeleft(timeleft);
 		for(int i = 0; i < buildround; i++){
 			if (build[i].y < -100){
@@ -164,12 +164,6 @@ public class Playstate extends State implements InputProcessor {
 		background.dispose();
 		error.dispose();
 		bob.dispose();
-		for (SideObj i: build) {
-			if(i != null) {
-				i.dispose();
-				System.out.println("Dispose Building");
-			}
-		}
 		System.out.println("PlayState Disposed");
 	}
 
@@ -218,21 +212,12 @@ public class Playstate extends State implements InputProcessor {
 
 					build[i].brakedown = true;
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 0) {
+						bob.setCheck(2); // 2 is bob death left.
 						Playstate.setScore(countfloor);
 						Playstate.setEndbydeath(true);
 						gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
-						error = new Texture("error4.png");
-						/////// SetCondoErrorChange////////
-						build[i].SideObj = new Texture("condo.png");
-						build[i].x = 200;
-						build[i].y = 50;
-						build[i].h = 200;
-						build[i].w = 200;
-						buildingstage.addActor(build[buildround - 1]);
-						//////////////////////////////
 						time.check = false; // Stop timer.
 						endgame = false;
-						bob.setCheck(2); // 2 is bob death left.
 
 					}
 				}
@@ -273,21 +258,12 @@ public class Playstate extends State implements InputProcessor {
 					build[i].brakedown = true;
 					//////////////////////////////
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 2) {
+						bob.setCheck(3); // 3 is bob death right.
 						Playstate.setScore(countfloor);
 						Playstate.setEndbydeath(true);
 						gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
-						error = new Texture("error4.png");
-						/////// SetCondoErrorChange////////
-						build[i].SideObj = new Texture("condo.png");
-						build[i].x = 200;
-						build[i].y = 50;
-						build[i].h = 200;
-						build[i].w = 200;
-						buildingstage.addActor(build[buildround - 1]);
-						//////////////////////////////
 						time.check = false; // Stop timer.
 						endgame = false;
-						bob.setCheck(3); // 3 is bob death right.
 
 					}
 				}
