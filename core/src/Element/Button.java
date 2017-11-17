@@ -11,6 +11,8 @@ public class Button extends Actor {
     public float w;
     public float h;
     boolean check = false;
+//    Texture = play;
+//    Texture = 
 
     public Button(String name, float x, float y, float w, float h) {
         button = new Texture(name);
