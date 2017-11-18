@@ -56,12 +56,12 @@ public class BOB extends Actor {
     public void setCheck(int check) { // check left or right character.
     	if (check == 0){ //0 is left.
             bob = bobLeft;
-            bob = bobHitLeft;
+
             this.x = 0;
         }
         else if (check == 1){//1 is right.
             bob = bobRight;
-            bob = bobHitRight;
+
             this.x = 400;
         }
         else if (check == 2){//2 is dead left.
@@ -72,13 +72,28 @@ public class BOB extends Actor {
             bob = graveRight;
             this.x = 400;
         }
+        else if (check == 4){//4 is des left.
+            bob = new Texture("bobLeft2.png");
+            this.x = 0;
+            System.out.println("outL");
+        }
+        else if (check == 5){//5 is des right.
+            bob = new Texture("bobRight2.png");
+            this.x = 400;
+            System.out.println("outR");
+        }
         rect = new Rectangle(this.x, y, 200, 200);
     }
-    
+
     public float getx() {
     	return x;
     }
-    
+
+    @Override
+    public void setX(float x) {
+        this.x = x;
+    }
+
     public void dispose() {
     	bob.dispose();
     }
