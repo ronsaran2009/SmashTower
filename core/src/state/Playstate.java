@@ -168,16 +168,6 @@ public class Playstate extends State implements InputProcessor {
 		background.dispose();
 		error.dispose();
 		bob.dispose();
-<<<<<<< HEAD
-		for (SideObj i: testbuild) {
-			if(i != null) {
-				i.dispose();
-			}
-		}
-		testbuild.clear();
-		System.out.println("Dispose Building");
-=======
->>>>>>> Master
 		System.out.println("PlayState Disposed");
 	}
 
@@ -220,7 +210,6 @@ public class Playstate extends State implements InputProcessor {
 				/////////////////////////////////
 				// System.out.println(floor);
 				for (int i = 0; i < buildround; i++) {
-<<<<<<< HEAD
 					testbuild.get(i).y -= 25;
 					testbuild.get(i).brakedown = true;
 					if (testbuild.get(i).y < 250 && testbuild.get(i).y >= 50 && testbuild.get(i).check == 0) {
@@ -237,7 +226,6 @@ public class Playstate extends State implements InputProcessor {
 						testbuild.get(i).w = 200;
 						buildingstage.addActor(testbuild.get(buildround -1));
 						//////////////////////////////
-=======
 					build[i].y -= 25;
 
 
@@ -248,7 +236,6 @@ public class Playstate extends State implements InputProcessor {
 						Playstate.setScore(countfloor);
 						Playstate.setEndbydeath(true);
 						gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
->>>>>>> Master
 						time.check = false; // Stop timer.
 						endgame = false;
 
@@ -290,28 +277,11 @@ public class Playstate extends State implements InputProcessor {
 					testbuild.get(i).y -= 25;
 					testbuild.get(i).brakedown = true;
 					//////////////////////////////
-<<<<<<< HEAD
-					if (testbuild.get(i).y < 250 && testbuild.get(i).y >= 50 && testbuild.get(i).check == 2) {
-						Playstate.setScore(countfloor);
-						Playstate.setEndbydeath(true);
-						gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
-						error = new Texture("error4.png");
-						/////// SetCondoErrorChange////////
-//						build[i].SideObj = new Texture("condo.png");
-						testbuild.get(i).SideObj = new Texture("condo.png");
-						testbuild.get(i).x = 200;
-						testbuild.get(i).y = 50;
-						testbuild.get(i).h = 200;
-						testbuild.get(i).w = 200;
-						buildingstage.addActor(testbuild.get(buildround -1));
-						//////////////////////////////
-=======
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 2) {
 						bob.setCheck(3); // 3 is bob death right.
 						Playstate.setScore(countfloor);
 						Playstate.setEndbydeath(true);
 						gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
->>>>>>> Master
 						time.check = false; // Stop timer.
 						endgame = false;
 
