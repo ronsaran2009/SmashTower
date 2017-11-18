@@ -98,10 +98,12 @@ public class Playstate extends State implements InputProcessor {
             if (testbuild.get(i).y <=50 && testbuild.get(i).check == 3){
 				Playstate.setTimeleft(timeleft);
 				Playstate.setEndbydeath(false);
+				Playstate.setScore(countfloor);
 				gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
             }
         }
         timeleft = time.getTime();
+		Playstate.setScore(countfloor);
 		Playstate.setTimeleft(timeleft);
 //		for(int i = 0; i < buildround; i++){
 //			if (testbuild.get(i).y < -100){
@@ -166,6 +168,7 @@ public class Playstate extends State implements InputProcessor {
 		background.dispose();
 		error.dispose();
 		bob.dispose();
+<<<<<<< HEAD
 		for (SideObj i: testbuild) {
 			if(i != null) {
 				i.dispose();
@@ -173,6 +176,8 @@ public class Playstate extends State implements InputProcessor {
 		}
 		testbuild.clear();
 		System.out.println("Dispose Building");
+=======
+>>>>>>> Master
 		System.out.println("PlayState Disposed");
 	}
 
@@ -215,6 +220,7 @@ public class Playstate extends State implements InputProcessor {
 				/////////////////////////////////
 				// System.out.println(floor);
 				for (int i = 0; i < buildround; i++) {
+<<<<<<< HEAD
 					testbuild.get(i).y -= 25;
 					testbuild.get(i).brakedown = true;
 					if (testbuild.get(i).y < 250 && testbuild.get(i).y >= 50 && testbuild.get(i).check == 0) {
@@ -231,9 +237,20 @@ public class Playstate extends State implements InputProcessor {
 						testbuild.get(i).w = 200;
 						buildingstage.addActor(testbuild.get(buildround -1));
 						//////////////////////////////
+=======
+					build[i].y -= 25;
+
+
+
+					build[i].brakedown = true;
+					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 0) {
+						bob.setCheck(2); // 2 is bob death left.
+						Playstate.setScore(countfloor);
+						Playstate.setEndbydeath(true);
+						gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
+>>>>>>> Master
 						time.check = false; // Stop timer.
 						endgame = false;
-						bob.setCheck(2); // 2 is bob death left.
 
 					}
 				}
@@ -273,6 +290,7 @@ public class Playstate extends State implements InputProcessor {
 					testbuild.get(i).y -= 25;
 					testbuild.get(i).brakedown = true;
 					//////////////////////////////
+<<<<<<< HEAD
 					if (testbuild.get(i).y < 250 && testbuild.get(i).y >= 50 && testbuild.get(i).check == 2) {
 						Playstate.setScore(countfloor);
 						Playstate.setEndbydeath(true);
@@ -287,9 +305,15 @@ public class Playstate extends State implements InputProcessor {
 						testbuild.get(i).w = 200;
 						buildingstage.addActor(testbuild.get(buildround -1));
 						//////////////////////////////
+=======
+					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 2) {
+						bob.setCheck(3); // 3 is bob death right.
+						Playstate.setScore(countfloor);
+						Playstate.setEndbydeath(true);
+						gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
+>>>>>>> Master
 						time.check = false; // Stop timer.
 						endgame = false;
-						bob.setCheck(3); // 3 is bob death right.
 
 					}
 				}

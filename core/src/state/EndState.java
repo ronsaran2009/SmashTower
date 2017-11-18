@@ -29,12 +29,14 @@ public class EndState extends State implements InputProcessor{
 	int num2;
 	int num3;
 	Texture star;
+	Texture scorebg;
 
 	protected EndState(GameStateManager gsm, int time, int limitfloor, boolean freedommode ,int levelCheck) {
 		super(gsm);
 		// TODO Auto-generated constructor stub
 
 		endscreen = new Texture("bgendgame.jpg");
+		scorebg = new Texture("freescore.png");
 		retry = new Button("retry.png",240, 175, 120, 100);
 		toSelect = new Button("baackmenu.png", 260, 75, 80, 80);
 		this.time = time;
@@ -50,9 +52,9 @@ public class EndState extends State implements InputProcessor{
 		num2 = (allscore%100)/10;
 		num3 = allscore/100;
 		scorestage = new Stage();
-		score1 = new Score(num1,150,350,100,170);
-		score2 = new Score(num2,250,350,100,170);
-		score3 = new Score(num3,350,350,100,170);
+		score1 = new Score(num1,320,375,80,100);
+		score2 = new Score(num2,260,375,80,100);
+		score3 = new Score(num3,200,375,80,100);
 		scorestage.addActor(score1);
 		scorestage.addActor(score2);
 		scorestage.addActor(score3);
@@ -99,6 +101,9 @@ public class EndState extends State implements InputProcessor{
 		sb.draw(endscreen, 0, 0, 600, 800);
 		sb.end();
 		if(isFreedommode()){
+			sb.begin();
+			sb.draw(scorebg, 150, 350, 300, 170);
+			sb.end();
 			scorestage.draw();
 		}
 		else {
@@ -117,6 +122,7 @@ public class EndState extends State implements InputProcessor{
 		endscreen.dispose();
 		retry.dispose();
 		toSelect.dispose();
+		buttonstage.clear();
 		buttonstage.dispose();
 		star.dispose();
 		//scorestage.dispose();

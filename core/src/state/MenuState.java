@@ -15,7 +15,6 @@ public class MenuState extends State implements InputProcessor{
 	Stage buttonstage;
 	Button play;
 
-
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
 		Gdx.input.setInputProcessor(this);
@@ -54,6 +53,8 @@ public class MenuState extends State implements InputProcessor{
 		// TODO Auto-generated method stub
 		background.dispose();
 		play.dispose();
+		buttonstage.clear();
+		buttonstage.dispose();
 		System.out.println("MenuState Disposed");
 	}
 
@@ -95,6 +96,7 @@ public class MenuState extends State implements InputProcessor{
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
+		//System.out.println("X : "+ screenX + " Y : " + screenY );
 		if (play.click(screenX,screenY)){
 			play = new Button("playdown.png", 200, 50, 200, 200);
 			buttonstage.addActor(play);
