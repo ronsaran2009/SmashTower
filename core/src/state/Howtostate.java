@@ -17,8 +17,8 @@ public class Howtostate extends State implements InputProcessor{
 		
 		background = new Texture("howtonobuttonpng.png");
 		menu = new Button("menuhowto.png", 212, 15, 175, 75);
-		 buttonstage = new Stage();
-	     buttonstage.addActor(menu);
+		buttonstage = new Stage();
+	    buttonstage.addActor(menu);
 		// TODO Auto-generated constructor stub
 	}
 	@Override
@@ -66,6 +66,14 @@ public class Howtostate extends State implements InputProcessor{
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
 		// TODO Auto-generated method stub
+		if (menu.click(screenX,screenY)){
+			menu = new Button("menuhowtobk.png", 212, 15, 175, 75);
+            buttonstage.addActor(menu);
+        }
+		else {
+			menu = new Button("menuhowto.png", 212, 15, 175, 75);
+            buttonstage.addActor(menu);
+		}
 		return false;
 	}
 
@@ -102,6 +110,8 @@ public class Howtostate extends State implements InputProcessor{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		background.dispose();
+		buttonstage.dispose();
+		buttonstage.clear();
 		menu.dispose();
         System.out.println("How to state Disposed");
 	}
