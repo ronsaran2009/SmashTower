@@ -122,6 +122,7 @@ public class EndState extends State implements InputProcessor{
 		endscreen.dispose();
 		retry.dispose();
 		toSelect.dispose();
+		buttonstage.clear();
 		buttonstage.dispose();
 		star.dispose();
 		//scorestage.dispose();
