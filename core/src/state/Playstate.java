@@ -34,8 +34,9 @@ public class Playstate extends State implements InputProcessor {
 	boolean freedommode;
 	float timeleft;
 	int level;// 0easy 1normal 2hard 3freedom
-	Texture bom;
+	Texture bom, bomclr , bombom;
 	String center;
+
 
 	public Playstate(GameStateManager gsm, int time, int limitfloor, boolean freedommode, int level) {
 		super(gsm);
@@ -60,7 +61,9 @@ public class Playstate extends State implements InputProcessor {
 		timebg = new Texture("bartime.png");
 		timewhitebg = new Texture("bartimebg.png");
 		//////////
-		bom = new Texture("comic-boom-explosion-2-8-1.png");
+		bomclr = new Texture("bomclear.png");
+		bombom =  new Texture("comic-boom-explosion-2-8-1.png");
+		bom = bomclr;
 		////// SetCondo/////
 		build[0] = new SideObj(4, this.level);
 		build[1] = new SideObj(1, this.level);
@@ -107,6 +110,7 @@ public class Playstate extends State implements InputProcessor {
 				build[i].remove();
 			}
 		}
+
 	}
 
 	@Override
@@ -137,12 +141,9 @@ public class Playstate extends State implements InputProcessor {
 		batch.begin();
 		batch.draw(timebg, 0, 726, 600, 74);
 		batch.draw(error, 0, 0, 600, 800);
+		batch.draw(bom, 50, -75, 475, 450);
 		batch.end();
-		if (build[countfloor].brakedown == true) {
-			batch.begin();
-			batch.draw(bom, 50, -75, 475, 450);
-			batch.end();
-		}
+
 		////// TimeOut//////
 		if (time.isEnd() == false) {
 			endgame = false;
@@ -205,8 +206,9 @@ public class Playstate extends State implements InputProcessor {
 		if (endgame == true) {
 			if (keycode == Input.Keys.LEFT) {
 				// bob.x = 0;
+				bom =bombom;
 				time.setCheck(true);// start timer
-				bob.setCheck(0);// side of bob. True is left.
+				bob.setCheck(4);
 				// System.out.println(floor);
 				/////// BuildingBreakdown//////
 				for (int i = 0; i < buildround; i++) {
@@ -229,6 +231,7 @@ public class Playstate extends State implements InputProcessor {
 							build[i].h = 200;
 							build[i].w = 200;
 							buildingstage.addActor(build[i]);
+							countfloor -= 1;
 						}
 
 					}
@@ -242,8 +245,10 @@ public class Playstate extends State implements InputProcessor {
 			}
 			if (keycode == Input.Keys.RIGHT) {
 				// bob.x = 400;
+				bom = bombom;
 				time.check = true; // start timer.
-				bob.setCheck(1);// side of bob. 1 is right.
+				bob.setCheck(5);
+
 				/////// BuildingBreakdown//////
 				for (int i = 0; i < buildround; i++) {
 					build[i].y -= 25;
@@ -256,7 +261,7 @@ public class Playstate extends State implements InputProcessor {
 							gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
 							time.check = false; // Stop timer.
 							endgame = false;
-							bob.setCheck(3);
+							//bob.setCheck(3);
 						}else {
 							time.time -= 1;
 							center = build[i].getcenter();
@@ -266,6 +271,7 @@ public class Playstate extends State implements InputProcessor {
 							build[i].h = 200;
 							build[i].w = 200;
 							buildingstage.addActor(build[i]);
+							countfloor -=1;
 						}
 
 					}
@@ -287,6 +293,14 @@ public class Playstate extends State implements InputProcessor {
 	@Override
 	public boolean keyUp(int keycode) {
 		// TODO Auto-generated method stub
+		if (keycode == Input.Keys.LEFT){
+			bob.setCheck(0);
+			bom = bomclr;
+		}
+		else if (keycode == Input.Keys.RIGHT){
+			bob.setCheck(1);
+			bom = bomclr;
+		}
 		return false;
 	}
 
