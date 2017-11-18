@@ -17,6 +17,7 @@ public class SideObj extends Actor {
     public boolean brakedownround1 ;
     int limitfloor;
     int level;
+    int random;
 
     public SideObj(int random, int level){
         this.level = level;
@@ -217,6 +218,24 @@ public class SideObj extends Actor {
     
     public void setBreakdown() {
     	
+    }
+    
+    public void setRandom(int random) {
+    	this.random = random;
+    }
+    
+    public String getcenter() {
+    	String name = "";
+    	if(this.level == 0) {
+    		name = "h4-2.png";
+    	}else if(this.level == 1) {
+    		name = "h1-2.png";
+    	}else if(this.level == 2) {
+    		name = "h2-2.png";
+    	}else if(this.level == 3) {
+    		name = "h3.png";
+    	}
+    	return name;
     }
     
     public void dispose() {
