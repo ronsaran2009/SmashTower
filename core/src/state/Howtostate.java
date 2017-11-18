@@ -16,7 +16,7 @@ public class Howtostate extends State implements InputProcessor{
 		Gdx.input.setInputProcessor(this);
 		
 		background = new Texture("howtonobuttonpng.png");
-		menu = new Button("menuhowto.png", 190, 0, 224, 112);
+		menu = new Button("menuhowto.png", 212, 15, 175, 75);
 		 buttonstage = new Stage();
 	     buttonstage.addActor(menu);
 		// TODO Auto-generated constructor stub

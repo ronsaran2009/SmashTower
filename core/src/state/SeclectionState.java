@@ -28,7 +28,7 @@ public class SeclectionState extends State implements InputProcessor {
         normal = new Button("normal.png",190, 375, 224, 112);
         hard = new Button("hard.png",190, 250, 224, 112);
         freedom = new Button("freedom.png",190 ,125, 224, 112);
-        how_to = new Button("howtoplay.png",190, 0, 224, 112);
+        how_to = new Button("howtoplay.png", 202, 25, 206, 88);
         buttonstage = new Stage();
         buttonstage.addActor(easy);
         buttonstage.addActor(normal);
@@ -130,7 +130,7 @@ public class SeclectionState extends State implements InputProcessor {
             normal = new Button("normal.png",190, 375, 224, 112);
             hard = new Button("hard.png",190, 250, 224, 112);
             freedom = new Button("freedom.png",190 ,125, 224, 112);
-            how_to = new Button("howtoplay.png", 190, 0, 224, 112);
+            how_to = new Button("howtoplay.png", 202, 25, 206, 88);
             buttonstage.addActor(easy);
             buttonstage.addActor(normal);
             buttonstage.addActor(hard);
@@ -142,7 +142,7 @@ public class SeclectionState extends State implements InputProcessor {
             normal = new Button("normaldown.png",190, 375, 224, 112);
             hard = new Button("hard.png",190, 250, 224, 112);
             freedom = new Button("freedom.png",190 ,125, 224, 112);
-            how_to = new Button("howtoplay.png", 190, 0, 224, 112);
+            how_to = new Button("howtoplay.png", 202, 25, 206, 88);
             buttonstage.addActor(easy);
             buttonstage.addActor(normal);
             buttonstage.addActor(hard);
@@ -154,7 +154,7 @@ public class SeclectionState extends State implements InputProcessor {
             normal = new Button("normal.png",190, 375, 224, 112);
             hard = new Button("harddown.png",190, 250, 224, 112);
             freedom = new Button("freedom.png",190 ,125, 224, 112);
-            how_to = new Button("howtoplay.png", 190, 0, 224, 112);
+            how_to = new Button("howtoplay.png", 202, 25, 206, 88);
             buttonstage.addActor(easy);
             buttonstage.addActor(normal);
             buttonstage.addActor(hard);
@@ -166,7 +166,7 @@ public class SeclectionState extends State implements InputProcessor {
             normal = new Button("normal.png",190, 375, 224, 112);
             hard = new Button("hard.png",190, 250, 224, 112);
             freedom = new Button("freedomdown.png",190 ,125, 224, 112);
-            how_to = new Button("howtoplay.png", 190, 0, 224, 112);
+            how_to = new Button("howtoplay.png", 202, 25, 206, 88);
             buttonstage.addActor(easy);
             buttonstage.addActor(normal);
             buttonstage.addActor(hard);
@@ -178,7 +178,7 @@ public class SeclectionState extends State implements InputProcessor {
             normal = new Button("normal.png",190, 375, 224, 112);
             hard = new Button("hard.png",190, 250, 224, 112);
             freedom = new Button("freedom.png",190 ,125, 224, 112);
-            how_to = new Button("howtoplaybk.png", 190, 0, 224, 112);
+            how_to = new Button("howtoplaybk.png", 202, 25, 206, 88);
             buttonstage.addActor(easy);
             buttonstage.addActor(normal);
             buttonstage.addActor(hard);
@@ -190,7 +190,7 @@ public class SeclectionState extends State implements InputProcessor {
             normal = new Button("normal.png",190, 375, 224, 112);
             hard = new Button("hard.png",190, 250, 224, 112);
             freedom = new Button("freedom.png",190 ,125, 224, 112);
-            how_to = new Button("howtoplay.png", 190, 0, 224, 112);
+            how_to = new Button("howtoplay.png", 202, 25, 206, 88);
             buttonstage.addActor(easy);
             buttonstage.addActor(normal);
             buttonstage.addActor(hard);
