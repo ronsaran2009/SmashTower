@@ -3,9 +3,6 @@ package state;
 import Element.BOB;
 import Element.SideObj;
 import Element.Timer;
-
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
@@ -20,8 +17,7 @@ public class Playstate extends State implements InputProcessor {
 	SpriteBatch batch;
 	Stage character;
 	Texture background;
-//	SideObj build[] = new SideObj[1500];
-	ArrayList<SideObj> testbuild = new ArrayList<SideObj>();
+	SideObj build[] = new SideObj[1500];
 	Stage buildingstage;
 	Texture error;
 	int seconed = 10;
@@ -65,23 +61,23 @@ public class Playstate extends State implements InputProcessor {
 		//////////
 		bom = new Texture("comic-boom-explosion-2-8-1.png");
 		////// SetCondo/////
-		testbuild.add(0, new SideObj(4, this.level));
-		testbuild.add(1, new SideObj(1, this.level));
-		testbuild.add(2, new SideObj(1, this.level));
-		testbuild.add(3, new SideObj(2, this.level));
-		testbuild.add(4, new SideObj(3, this.level));
-		testbuild.get(0).y = 50;
-		testbuild.get(1).y = 250;
-		testbuild.get(2).y = 450;
-		testbuild.get(3).y = 650;
-		testbuild.get(4).y = (200*limitfloor)+50;
+		build[0] = new SideObj(4, this.level);
+		build[1] = new SideObj(1, this.level);
+		build[2] = new SideObj(1, this.level);
+		build[3] = new SideObj(2, this.level);
+        build[this.limitfloor] = new SideObj(3, this.level);
+		build[0].y = 50;
+		build[1].y = 250;
+		build[2].y = 450;
+		build[3].y = 650;
+		build[this.limitfloor].y = (200*limitfloor)+50;
 		buildingstage = new Stage();
 		////////////////////
-		buildingstage.addActor(testbuild.get(0));
-		buildingstage.addActor(testbuild.get(1));
-		buildingstage.addActor(testbuild.get(2));
-		buildingstage.addActor(testbuild.get(3));
-        buildingstage.addActor(testbuild.get(4));
+		buildingstage.addActor(build[0]);
+		buildingstage.addActor(build[1]);
+		buildingstage.addActor(build[2]);
+		buildingstage.addActor(build[3]);
+        buildingstage.addActor(build[this.limitfloor]);
 		//cam.setToOrtho(false, MyGdxGame.Width / 2, MyGdxGame.Heigh / 2);
 	}
 
@@ -95,7 +91,7 @@ public class Playstate extends State implements InputProcessor {
 	public void update(float dt) {
 		// TODO Auto-generated method stub
         for (int i = 0; i < buildround; i++) {
-            if (testbuild.get(i).y <=50 && testbuild.get(i).check == 3){
+            if (build[i].y <=50 && build[i].check == 3){
 				Playstate.setTimeleft(timeleft);
 				Playstate.setEndbydeath(false);
 				Playstate.setScore(countfloor);
@@ -105,11 +101,11 @@ public class Playstate extends State implements InputProcessor {
         timeleft = time.getTime();
 		Playstate.setScore(countfloor);
 		Playstate.setTimeleft(timeleft);
-//		for(int i = 0; i < buildround; i++){
-//			if (testbuild.get(i).y < -100){
-//				testbuild.get(i).remove();
-//			}
-//		}
+		for(int i = 0; i < buildround; i++){
+			if (build[i].y < -100){
+				build[i].remove();
+			}
+		}
 	}
 
 	@Override
@@ -141,7 +137,7 @@ public class Playstate extends State implements InputProcessor {
 		batch.draw(timebg, 0, 726, 600, 74);
 		batch.draw(error, 0, 0, 600, 800);
 		batch.end();
-		if (testbuild.get(countfloor).brakedown == true){
+		if (build[countfloor].brakedown == true){
 			batch.begin();
 			batch.draw(bom, 50, -75, 475, 450);
 			batch.end();
@@ -190,17 +186,17 @@ public class Playstate extends State implements InputProcessor {
 				bob.setCheck(0);// side of bob. True is left.
 				///// CheckForCreateNewNextOne////
 				if (buildround < limitfloor){
-					if (testbuild.get(buildround - 1).y <= 650) {
-						testbuild.add(buildround, new SideObj(floor, level));
-						buildingstage.addActor(testbuild.get(buildround));
+					if (build[buildround - 1].y <= 650) {
+						build[buildround] = new SideObj(floor, level);
+						buildingstage.addActor(build[buildround]);
 						buildround += 1;
 					}
 				}
 				else{
 				    if (builtmore == true) {
-                        if (testbuild.get(buildround - 1).y <= 650) {
-                        	testbuild.set(buildround, new SideObj(3, level));
-                            buildingstage.addActor(testbuild.get(buildround));
+                        if (build[buildround - 1].y <= 650) {
+                            build[buildround] = new SideObj(3, level);
+                            buildingstage.addActor(build[buildround]);
                             buildround += 1;
                             builtmore = false;
                         }
@@ -210,22 +206,6 @@ public class Playstate extends State implements InputProcessor {
 				/////////////////////////////////
 				// System.out.println(floor);
 				for (int i = 0; i < buildround; i++) {
-					testbuild.get(i).y -= 25;
-					testbuild.get(i).brakedown = true;
-					if (testbuild.get(i).y < 250 && testbuild.get(i).y >= 50 && testbuild.get(i).check == 0) {
-						Playstate.setScore(countfloor);
-						Playstate.setEndbydeath(true);
-						gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
-						error = new Texture("error4.png");
-						/////// SetCondoErrorChange////////
-//						build[i].SideObj = new Texture("condo.png");
-						testbuild.get(i).SideObj = new Texture("condo.png");
-						testbuild.get(i).x = 200;
-						testbuild.get(i).y = 50;
-						testbuild.get(i).h = 200;
-						testbuild.get(i).w = 200;
-						buildingstage.addActor(testbuild.get(buildround -1));
-						//////////////////////////////
 					build[i].y -= 25;
 
 
@@ -254,18 +234,18 @@ public class Playstate extends State implements InputProcessor {
 				bob.setCheck(1);// side of bob. 1 is right.
 				///// CheckForCreateNewNextNoe////
 				if (buildround <= limitfloor){
-					if (testbuild.get(buildround -1).y <= 650) {
-						testbuild.add(buildround, new SideObj(floor, level));
-						buildingstage.addActor(testbuild.get(buildround));
+					if (build[buildround - 1].y <= 650) {
+						build[buildround] = new SideObj(floor, level);
+						buildingstage.addActor(build[buildround]);
 						buildround += 1;
 					}
 				}
                 else{
                     if (builtmore == true) {
-                        if (testbuild.get(buildround -1).y <= 650) {
-                        	testbuild.set(buildround, new SideObj(3, level));
-    						buildingstage.addActor(testbuild.get(buildround));
-    						buildround += 1;
+                        if (build[buildround - 1].y <= 650) {
+                            build[buildround] = new SideObj(3, level);
+                            buildingstage.addActor(build[buildround]);
+                            buildround += 1;
                             builtmore = false;
                         }
                     }
@@ -274,8 +254,8 @@ public class Playstate extends State implements InputProcessor {
 				/////////////////////////////////
 				/////// BuildingBreakdown//////
 				for (int i = 0; i < buildround; i++) {
-					testbuild.get(i).y -= 25;
-					testbuild.get(i).brakedown = true;
+					build[i].y -= 25;
+					build[i].brakedown = true;
 					//////////////////////////////
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 2) {
 						bob.setCheck(3); // 3 is bob death right.
