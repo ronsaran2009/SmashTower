@@ -16,6 +16,7 @@ public class SeclectionState extends State implements InputProcessor {
     Button normal;
     Button hard;
     Button freedom;
+    Button how_to;
     Stage buttonstage;
 
     public SeclectionState(GameStateManager gsm) {
@@ -27,11 +28,13 @@ public class SeclectionState extends State implements InputProcessor {
         normal = new Button("normal.png",190, 375, 224, 112);
         hard = new Button("hard.png",190, 250, 224, 112);
         freedom = new Button("freedom.png",190 ,125, 224, 112);
+        how_to = new Button("howtoplay.png",190, 0, 224, 112);
         buttonstage = new Stage();
         buttonstage.addActor(easy);
         buttonstage.addActor(normal);
         buttonstage.addActor(hard);
         buttonstage.addActor(freedom);
+        buttonstage.addActor(how_to);
 
 
     }
@@ -62,6 +65,7 @@ public class SeclectionState extends State implements InputProcessor {
         normal.dispose();
         hard.dispose();
         freedom.dispose();
+        how_to.dispose();
         buttonstage.clear();
 		buttonstage.dispose();
         System.out.println("SeclectionState Disposed");
@@ -102,6 +106,10 @@ public class SeclectionState extends State implements InputProcessor {
                 gsm.set(new Playstate(gsm,10,1000, true, 3));
                 System.out.println("FREEDOM");
             }
+            else if (how_to.click(screenX, screenY)) {
+            	gsm.set(new Howtostate(gsm));
+            	System.out.println("How to");
+            }
         return false;
     }
 
@@ -122,50 +130,72 @@ public class SeclectionState extends State implements InputProcessor {
             normal = new Button("normal.png",190, 375, 224, 112);
             hard = new Button("hard.png",190, 250, 224, 112);
             freedom = new Button("freedom.png",190 ,125, 224, 112);
+            how_to = new Button("howtoplay.png", 190, 0, 224, 112);
             buttonstage.addActor(easy);
             buttonstage.addActor(normal);
             buttonstage.addActor(hard);
             buttonstage.addActor(freedom);
+            buttonstage.addActor(how_to);
         }
         else if (normal.click(screenX,screenY)){
             easy = new Button("easy.png",190, 500,224, 112);
             normal = new Button("normaldown.png",190, 375, 224, 112);
             hard = new Button("hard.png",190, 250, 224, 112);
             freedom = new Button("freedom.png",190 ,125, 224, 112);
+            how_to = new Button("howtoplay.png", 190, 0, 224, 112);
             buttonstage.addActor(easy);
             buttonstage.addActor(normal);
             buttonstage.addActor(hard);
             buttonstage.addActor(freedom);
+            buttonstage.addActor(how_to);
         }
         else if (hard.click(screenX,screenY)){
             easy = new Button("easy.png",190, 500,224, 112);
             normal = new Button("normal.png",190, 375, 224, 112);
             hard = new Button("harddown.png",190, 250, 224, 112);
             freedom = new Button("freedom.png",190 ,125, 224, 112);
+            how_to = new Button("howtoplay.png", 190, 0, 224, 112);
             buttonstage.addActor(easy);
             buttonstage.addActor(normal);
             buttonstage.addActor(hard);
             buttonstage.addActor(freedom);
+            buttonstage.addActor(how_to);
         }
         else if (freedom.click(screenX,screenY)){
             easy = new Button("easy.png",190, 500,224, 112);
             normal = new Button("normal.png",190, 375, 224, 112);
             hard = new Button("hard.png",190, 250, 224, 112);
             freedom = new Button("freedomdown.png",190 ,125, 224, 112);
+            how_to = new Button("howtoplay.png", 190, 0, 224, 112);
             buttonstage.addActor(easy);
             buttonstage.addActor(normal);
             buttonstage.addActor(hard);
             buttonstage.addActor(freedom);
+            buttonstage.addActor(how_to);
+        }
+        else if (how_to.click(screenX,screenY)){
+            easy = new Button("easy.png",190, 500,224, 112);
+            normal = new Button("normal.png",190, 375, 224, 112);
+            hard = new Button("hard.png",190, 250, 224, 112);
+            freedom = new Button("freedom.png",190 ,125, 224, 112);
+            how_to = new Button("howtoplaybk.png", 190, 0, 224, 112);
+            buttonstage.addActor(easy);
+            buttonstage.addActor(normal);
+            buttonstage.addActor(hard);
+            buttonstage.addActor(freedom);
+            buttonstage.addActor(how_to);
         }
         else{
             easy = new Button("easy.png",190, 500,224, 112);
             normal = new Button("normal.png",190, 375, 224, 112);
             hard = new Button("hard.png",190, 250, 224, 112);
             freedom = new Button("freedom.png",190 ,125, 224, 112);
+            how_to = new Button("howtoplay.png", 190, 0, 224, 112);
             buttonstage.addActor(easy);
             buttonstage.addActor(normal);
             buttonstage.addActor(hard);
             buttonstage.addActor(freedom);
+            buttonstage.addActor(how_to);
         }
         return false;
     }
