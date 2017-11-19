@@ -14,29 +14,29 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class Playstate extends State implements InputProcessor {
 
 	BOB bob;
-	SpriteBatch batch;
-	Stage character;
-	Texture background;
 	SideObj build[] = new SideObj[1500];
-	Stage buildingstage;
+	Timer time;
+	SpriteBatch batch;
+	Texture background;
+	Texture bom, bomclr, bombom;
 	Texture error;
+	Texture timebg;
+	Texture timewhitebg;
+	Stage character;
+	Stage buildingstage;
+	Stage timer;
 	int seconed = 10;
 	int buildround = 4;
 	int floor;
 	int countfloor = 0;
 	boolean endgame = true;
-	Timer time;
-	Stage timer;
-	Texture timebg;
-	Texture timewhitebg;
 	int limitfloor;
 	boolean builtmore = true;
 	boolean freedommode;
 	float timeleft;
 	int level;// 0easy 1normal 2hard 3freedom
-	Texture bom, bomclr , bombom;
-	String center;
 
+	String center;
 
 	public Playstate(GameStateManager gsm, int time, int limitfloor, boolean freedommode, int level) {
 		super(gsm);
@@ -52,7 +52,7 @@ public class Playstate extends State implements InputProcessor {
 		bob = new BOB(0);
 		character = new Stage();
 		character.addActor(bob);
-		////////
+		//////////
 		/// Time///
 		seconed = time;
 		this.time = new Timer(seconed);// sec
@@ -62,7 +62,7 @@ public class Playstate extends State implements InputProcessor {
 		timewhitebg = new Texture("bartimebg.png");
 		//////////
 		bomclr = new Texture("bomclear.png");
-		bombom =  new Texture("comic-boom-explosion-2-8-1.png");
+		bombom = new Texture("comic-boom-explosion-2-8-1.png");
 		bom = bomclr;
 		////// SetCondo/////
 		build[0] = new SideObj(4, this.level);
@@ -87,8 +87,6 @@ public class Playstate extends State implements InputProcessor {
 
 	@Override
 	public void handleinput() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -110,7 +108,6 @@ public class Playstate extends State implements InputProcessor {
 				build[i].remove();
 			}
 		}
-
 	}
 
 	@Override
@@ -119,16 +116,14 @@ public class Playstate extends State implements InputProcessor {
 		/////// clear/////
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		////////////////
+		//////////////////
 		///////// Set Screen/////////
 		character.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		buildingstage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		timer.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
-		//////////////////
+		/////////////////////////////
 		/////// Background///////
 		batch.begin();
-		// batch.setProjectionMatrix(cam.combined);
-		// batch.draw(background, cam.position.x - (cam.viewportWidth / 2), 0);
 		batch.draw(background, -600, 0, 1200, 1600);
 		batch.end();
 		///////////////////////
@@ -143,7 +138,6 @@ public class Playstate extends State implements InputProcessor {
 		batch.draw(error, 0, 0, 600, 800);
 		batch.draw(bom, 50, -75, 475, 450);
 		batch.end();
-
 		////// TimeOut//////
 		if (time.isEnd() == false) {
 			endgame = false;
@@ -166,6 +160,7 @@ public class Playstate extends State implements InputProcessor {
 		background.dispose();
 		error.dispose();
 		bob.dispose();
+		batch.dispose();
 		character.clear();
 		buildingstage.clear();
 		character.dispose();
@@ -206,7 +201,7 @@ public class Playstate extends State implements InputProcessor {
 		if (endgame == true) {
 			if (keycode == Input.Keys.LEFT) {
 				// bob.x = 0;
-				bom =bombom;
+				bom = bombom;
 				time.setCheck(true);// start timer
 				bob.setCheck(4);
 				// System.out.println(floor);
@@ -217,12 +212,12 @@ public class Playstate extends State implements InputProcessor {
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 0) {
 						Playstate.setScore(countfloor);
 						Playstate.setEndbydeath(true);
-						if(freedommode == true) {
+						if (freedommode == true) {
 							gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
 							time.check = false; // Stop timer.
 							endgame = false;
 							bob.setCheck(2);
-						}else {
+						} else {
 							time.time -= 1;
 							center = build[i].getcenter();
 							build[i].SideObj = new Texture(center);
@@ -257,12 +252,12 @@ public class Playstate extends State implements InputProcessor {
 					if (build[i].y < 250 && build[i].y >= 50 && build[i].check == 2) {
 						Playstate.setScore(countfloor);
 						Playstate.setEndbydeath(true);
-						if(freedommode == true) {
+						if (freedommode == true) {
 							gsm.set(new EndState(gsm, this.seconed, this.limitfloor, this.freedommode, this.level));
 							time.check = false; // Stop timer.
 							endgame = false;
-							//bob.setCheck(3);
-						}else {
+							// bob.setCheck(3);
+						} else {
 							time.time -= 1;
 							center = build[i].getcenter();
 							build[i].SideObj = new Texture(center);
@@ -271,7 +266,7 @@ public class Playstate extends State implements InputProcessor {
 							build[i].h = 200;
 							build[i].w = 200;
 							buildingstage.addActor(build[i]);
-							countfloor -=1;
+							countfloor -= 1;
 						}
 
 					}
@@ -293,11 +288,10 @@ public class Playstate extends State implements InputProcessor {
 	@Override
 	public boolean keyUp(int keycode) {
 		// TODO Auto-generated method stub
-		if (keycode == Input.Keys.LEFT){
+		if (keycode == Input.Keys.LEFT) {
 			bob.setCheck(0);
 			bom = bomclr;
-		}
-		else if (keycode == Input.Keys.RIGHT){
+		} else if (keycode == Input.Keys.RIGHT) {
 			bob.setCheck(1);
 			bom = bomclr;
 		}
