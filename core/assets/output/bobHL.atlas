@@ -1,24 +1,31 @@
 
-BobHitRightAnimated.png
+bobHL.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-bobright1
+bobLeft1
   rotate: false
   xy: 1, 1
-  size: 661, 661
-  orig: 661, 661
+  size: 660, 661
+  orig: 660, 661
+  offset: 0, 0
+  index: -1
+bobLeft3
+  rotate: false
+  xy: 1, 1
+  size: 660, 661
+  orig: 660, 661
   offset: 0, 0
   index: -1
 
-BobHitRightAnimated2.png
+bobHL2.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-bobright2
+bobleft2
   rotate: false
   xy: 1, 1
-  size: 661, 661
-  orig: 661, 661
+  size: 660, 661
+  orig: 660, 661
   offset: 0, 0
   index: -1

@@ -1,6 +1,7 @@
 package Element;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -16,9 +17,6 @@ public class BOB extends Actor {
     Texture bobHitRight;
     Texture graveLeft;
     Texture graveRight;
-    TextureRegion textureregion;
-    TextureAtlas textureatlas;
-    
     float x;
     float y = 50;
     float width = 200;
