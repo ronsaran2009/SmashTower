@@ -5,6 +5,7 @@ import Element.Score;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -30,11 +31,21 @@ public class EndState extends State implements InputProcessor{
 	int num3;
 	Texture star;
 	Texture scorebg;
+	//  ---------------------------
+	int bestscore = 0;
+	int best1;
+	int best2;
+	int best3;
+	Score scorebest1, scorebest2, scorebest3;
+	//  ---------------------------
+	Sound fail, win,click;
 
 	protected EndState(GameStateManager gsm, int time, int limitfloor, boolean freedommode ,int levelCheck) {
 		super(gsm);
 		// TODO Auto-generated constructor stub
-
+		click = Gdx.audio.newSound(Gdx.files.internal("sound/click.mp3"));
+		fail = Gdx.audio.newSound(Gdx.files.internal("sound/fail1.mp3"));
+		win = Gdx.audio.newSound(Gdx.files.internal("sound/win1.mp3"));
 		endscreen = new Texture("bgendgame.jpg");
 		scorebg = new Texture("freescore.png");
 		retry = new Button("retry.png",240, 175, 120, 100);
@@ -46,7 +57,12 @@ public class EndState extends State implements InputProcessor{
 		Gdx.input.setInputProcessor(this);
 
 		allscore = EndState.getScore();
+		bestscore = EndState.getBestscore();
 		System.out.println("getscore : "+allscore);
+		if (bestscore < allscore){
+			bestscore = allscore;
+			EndState.setBestscore(bestscore);
+		}
 
 		num1 = (allscore%10);
 		num2 = (allscore%100)/10;
@@ -58,13 +74,25 @@ public class EndState extends State implements InputProcessor{
 		scorestage.addActor(score1);
 		scorestage.addActor(score2);
 		scorestage.addActor(score3);
+		best1 = (bestscore%10);
+		best2 = (bestscore%100)/10;
+		best3 = bestscore/100;
+		scorebest1 = new Score(best1,385,300,40,50);
+		scorebest2 = new Score(best2,355,300,40,50);
+		scorebest3 = new Score(best3,325,300,40,50);
+		scorestage.addActor(scorebest1);
+		scorestage.addActor(scorebest2);
+		scorestage.addActor(scorebest3);
 
 		buttonstage = new Stage();
 		buttonstage.addActor(retry);
 		buttonstage.addActor(toSelect);
 		cam.setToOrtho(false, MyGdxGame.Width, MyGdxGame.Heigh);
+		MenuState.stop();
 		if (isEndbydeath() == true){//0star(no star)
 			star = new Texture("0s.png");
+			fail.play();
+			System.out.println("play");
 			if (isFreedommode() == true){
 				//Show score
 			}
@@ -72,12 +100,20 @@ public class EndState extends State implements InputProcessor{
 		else{
 			if (timeleft >= 3){//3star
 				star = new Texture("3s.png");
+				win.play();
 			}
 			else if (timeleft >= 1 && timeleft < 3){//2star
 				star = new Texture("2s.png");
+				win.play();
 			}
-			else if (timeleft >= 0 && timeleft < 1){//1star
+			else if (timeleft > 0 && timeleft < 1){//1star
 				star = new Texture("1s.png");
+				win.play();
+			}
+			else if (timeleft <= 0 ){//0star
+				star = new Texture("0s.png");
+				fail.play();
+				System.out.println("play");
 			}
 		}
 
@@ -110,6 +146,7 @@ public class EndState extends State implements InputProcessor{
 			sb.begin();
 			sb.draw(star, 150, 350, 300, 170);
 			sb.end();
+
 		}
 		//sb.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
 		buttonstage.draw();
@@ -119,6 +156,7 @@ public class EndState extends State implements InputProcessor{
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
+		fail.stop();
 		endscreen.dispose();
 		retry.dispose();
 		toSelect.dispose();
@@ -148,13 +186,17 @@ public class EndState extends State implements InputProcessor{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		System.out.println("Screen clicked");
+		click.play();
 		if (button == Input.Buttons.LEFT) {
 			if(retry.click(screenX, screenY)){
 //				System.out.println("Retry button clicked");
+				MenuState.play();
 				gsm.set(new Playstate(gsm, this.time, this.limitfloor, this.freedommode, this.levelCheck));
 			}else
 			if(toSelect.click(screenX, screenY)) {
 //				System.out.println("toSelect button clicked");
+				MenuState.stop();
+				MenuState.play();
 				gsm.set(new SeclectionState(gsm));
 			}
 		}

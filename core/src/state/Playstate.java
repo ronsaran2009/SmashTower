@@ -6,6 +6,7 @@ import Element.Timer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,7 +18,7 @@ public class Playstate extends State implements InputProcessor {
 	SpriteBatch batch;
 	Stage character;
 	Texture background;
-	SideObj build[] = new SideObj[1500];
+	SideObj build[] = new SideObj[1100];
 	Stage buildingstage;
 	Texture error;
 	int seconed = 10;
@@ -36,6 +37,8 @@ public class Playstate extends State implements InputProcessor {
 	int level;// 0easy 1normal 2hard 3freedom
 	Texture bom, bomclr , bombom;
 	String center;
+	Sound hammer;
+	public static Sound click;
 
 
 	public Playstate(GameStateManager gsm, int time, int limitfloor, boolean freedommode, int level) {
@@ -82,6 +85,8 @@ public class Playstate extends State implements InputProcessor {
 		buildingstage.addActor(build[2]);
 		buildingstage.addActor(build[3]);
 		buildingstage.addActor(build[this.limitfloor]);
+		hammer = Gdx.audio.newSound(Gdx.files.internal("sound/hammer.mp3"));
+		click = Gdx.audio.newSound(Gdx.files.internal("sound/click.mp3"));
 		// cam.setToOrtho(false, MyGdxGame.Width / 2, MyGdxGame.Heigh / 2);
 	}
 
@@ -110,6 +115,7 @@ public class Playstate extends State implements InputProcessor {
 				build[i].remove();
 			}
 		}
+
 
 	}
 
@@ -177,6 +183,7 @@ public class Playstate extends State implements InputProcessor {
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
 		////// RandomFloorType//////
+		click.play();
 		if (floor == 0 || floor == 2) {
 			floor = 1;
 		} else {
@@ -206,6 +213,7 @@ public class Playstate extends State implements InputProcessor {
 		if (endgame == true) {
 			if (keycode == Input.Keys.LEFT) {
 				// bob.x = 0;
+				hammer.play();
 				bom =bombom;
 				time.setCheck(true);// start timer
 				bob.setCheck(4);
@@ -223,6 +231,7 @@ public class Playstate extends State implements InputProcessor {
 							endgame = false;
 							bob.setCheck(2);
 						}else {
+							error = new Texture("redbg.png");
 							time.time -= 1;
 							center = build[i].getcenter();
 							build[i].SideObj = new Texture(center);
@@ -244,6 +253,7 @@ public class Playstate extends State implements InputProcessor {
 				}
 			}
 			if (keycode == Input.Keys.RIGHT) {
+				hammer.play();
 				// bob.x = 400;
 				bom = bombom;
 				time.check = true; // start timer.
@@ -263,6 +273,7 @@ public class Playstate extends State implements InputProcessor {
 							endgame = false;
 							//bob.setCheck(3);
 						}else {
+							error = new Texture("redbg.png");
 							time.time -= 1;
 							center = build[i].getcenter();
 							build[i].SideObj = new Texture(center);
@@ -296,10 +307,12 @@ public class Playstate extends State implements InputProcessor {
 		if (keycode == Input.Keys.LEFT){
 			bob.setCheck(0);
 			bom = bomclr;
+			error = new Texture("clearbg3.png");
 		}
 		else if (keycode == Input.Keys.RIGHT){
 			bob.setCheck(1);
 			bom = bomclr;
+			error = new Texture("clearbg3.png");
 		}
 		return false;
 	}

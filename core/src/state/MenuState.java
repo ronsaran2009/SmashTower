@@ -4,6 +4,7 @@ import Element.Button;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,6 +15,8 @@ public class MenuState extends State implements InputProcessor{
 	private Texture background;
 	Stage buttonstage;
 	Button play;
+	public static Sound menusound;
+	public static Sound click;
 
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
@@ -22,6 +25,15 @@ public class MenuState extends State implements InputProcessor{
 		background = new Texture("begin.jpg");
 		play = new Button("play.png", 200, 50, 200, 200);
 		buttonstage.addActor(play);
+		menusound = Gdx.audio.newSound(Gdx.files.internal("sound/menu.mp3"));
+		click = Gdx.audio.newSound(Gdx.files.internal("sound/click.mp3"));
+		menusound.loop();
+	}
+	public static void stop(){
+		menusound.stop();
+	}
+	public static void play(){
+		menusound.loop();
 	}
 	
 	@Override
@@ -45,6 +57,7 @@ public class MenuState extends State implements InputProcessor{
 		//sb.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
 		sb.end();
 		buttonstage.draw();
+
 
 	}
 
@@ -76,6 +89,7 @@ public class MenuState extends State implements InputProcessor{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		System.out.println("input!!!!!!");
+		click.play();
 		if (button == Input.Buttons.LEFT)
 			if (play.click(screenX, screenY)){
 				gsm.set(new SeclectionState(gsm));
