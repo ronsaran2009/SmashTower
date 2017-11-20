@@ -31,6 +31,7 @@ public class EndState extends State implements InputProcessor {
 	int num3;
 	Texture star;
 	Texture scorebg;
+	Texture highscore;
 	// ---------------------------
 	int bestscore = 0;
 	int best1;
@@ -47,6 +48,7 @@ public class EndState extends State implements InputProcessor {
 		win = Gdx.audio.newSound(Gdx.files.internal("sound/win1.mp3"));
 		endscreen = new Texture("bgendgame.jpg");
 		scorebg = new Texture("freescore.png");
+		highscore = new Texture("score.png");
 		retry = new Button("retry.png", 240, 175, 120, 100);
 		toSelect = new Button("baackmenu.png", 260, 75, 80, 80);
 		this.time = time;
@@ -76,9 +78,9 @@ public class EndState extends State implements InputProcessor {
 		best1 = (bestscore % 10);
 		best2 = (bestscore % 100) / 10;
 		best3 = bestscore / 100;
-		scorebest1 = new Score(best1, 385, 300, 40, 50);
-		scorebest2 = new Score(best2, 355, 300, 40, 50);
-		scorebest3 = new Score(best3, 325, 300, 40, 50);
+		scorebest1 = new Score(best1, 405, 295, 40, 50);
+		scorebest2 = new Score(best2, 375, 295, 40, 50);
+		scorebest3 = new Score(best3, 345, 295, 40, 50);
 		scorestage.addActor(scorebest1);
 		scorestage.addActor(scorebest2);
 		scorestage.addActor(scorebest3);
@@ -131,6 +133,7 @@ public class EndState extends State implements InputProcessor {
 		if (isFreedommode()) {
 			sb.begin();
 			sb.draw(scorebg, 150, 350, 300, 170);
+			sb.draw(highscore, 140, 280, 320, 80);
 			sb.end();
 			scorestage.draw();
 		} else {
