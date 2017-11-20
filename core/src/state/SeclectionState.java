@@ -86,7 +86,7 @@ public class SeclectionState extends State implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		System.out.println("input!!!!!!");
+		System.out.println("Screen Clicked");
 		click.play();
 		if (button == Input.Buttons.LEFT)
 			if (easy.click(screenX, screenY)) {
