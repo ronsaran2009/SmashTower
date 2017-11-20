@@ -60,7 +60,7 @@ public class EndState extends State implements InputProcessor {
 		allscore = EndState.getScore();
 		bestscore = EndState.getBestscore();
 		System.out.println("getscore : " + allscore);
-		if (bestscore < allscore) {
+		if (bestscore < allscore && freedommode == true) {
 			bestscore = allscore;
 			EndState.setBestscore(bestscore);
 		}
