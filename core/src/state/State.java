@@ -13,6 +13,7 @@ public abstract class State {
 	public static float timeleft;
 	public static boolean endbydeath = false;
 	public static boolean freedommode = false;
+	public static int bestscore = 0;
 
 	protected State(GameStateManager gsm) {
 		this.gsm = gsm;
@@ -50,6 +51,14 @@ public abstract class State {
 
 	public static void setFreedommode(boolean freedommode) {
 		State.freedommode = freedommode;
+	}
+
+	public static int getBestscore() {
+		return bestscore;
+	}
+
+	public static void setBestscore(int bestscore) {
+		State.bestscore = bestscore;
 	}
 
 	public abstract void handleinput();

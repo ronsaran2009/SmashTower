@@ -4,6 +4,7 @@ import Element.Button;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,11 +19,12 @@ public class SeclectionState extends State implements InputProcessor {
     Button freedom;
     Button how_to;
     Stage buttonstage;
+    public static Sound click;
 
     public SeclectionState(GameStateManager gsm) {
         super(gsm);
         Gdx.input.setInputProcessor(this);
-
+        click = Gdx.audio.newSound(Gdx.files.internal("sound/click.mp3"));
         background = new Texture("menu.jpg");
         easy = new Button("easy.png",190, 500,224, 112);
         normal = new Button("normal.png",190, 375, 224, 112);
@@ -89,6 +91,7 @@ public class SeclectionState extends State implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         System.out.println("input!!!!!!");
+        click.play();
         if (button == Input.Buttons.LEFT)
             if(easy.click(screenX, screenY)){
                 gsm.set(new Playstate(gsm,10,10, false, 0));
