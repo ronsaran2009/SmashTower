@@ -1,5 +1,7 @@
 package Element;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -10,9 +12,8 @@ public class Button extends Actor {
     public float y;
     public float w;
     public float h;
+    public static Sound click;
     boolean check = false;
-//    Texture = play;
-//    Texture = 
 
     public Button(String name, float x, float y, float w, float h) {
         button = new Texture(name);
@@ -20,6 +21,7 @@ public class Button extends Actor {
         this.y = y;
         this.w = w;
         this.h = h;
+        click = Gdx.audio.newSound(Gdx.files.internal("sound/click.mp3"));
     }
 
     public boolean click(float inputX, float inputY) {
@@ -33,6 +35,12 @@ public class Button extends Actor {
 
     public void draw(Batch batch, float alpha) {
         batch.draw(button, x, y, w, h);
+    }
+    public void play(){
+        click.play();
+    }
+    public void stop(){
+        click.stop();
     }
 
     public void dispose() {
