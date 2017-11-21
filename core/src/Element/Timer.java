@@ -29,9 +29,9 @@ public class Timer extends Actor {
 		midBar = new Texture("medtimebar.png");
 		fullBar = new Texture("fulltimebar.png");
 		this.x = 82;
-		this.y = 750;
+		this.y = 725;
 		this.w = 500;
-		this.h = 25;
+		this.h = 45;
 		this.fixw = this.w;
 		this.time = time;
 		this.timer = time;

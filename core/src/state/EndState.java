@@ -151,6 +151,7 @@ public class EndState extends State implements InputProcessor {
 	@Override
 	public void dispose() {
 		fail.stop();
+		win.stop();
 		endscreen.dispose();
 		retry.dispose();
 		star.dispose();

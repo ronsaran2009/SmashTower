@@ -134,11 +134,11 @@ public class Playstate extends State implements InputProcessor {
 		character.draw();
 		buildingstage.draw();
 		batch.begin();
-		batch.draw(timewhitebg, 82, 750, 500, 25);
+		batch.draw(timewhitebg, 82, 725, 500, 45);
 		batch.end();
 		timer.draw();
 		batch.begin();
-		batch.draw(timebg, 0, 726, 600, 74);
+		batch.draw(timebg, 0, 700, 600, 94);
 		batch.draw(error, 0, 0, 600, 800);
 		batch.draw(bom, 50, -75, 475, 450);
 		batch.end();

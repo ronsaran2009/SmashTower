@@ -90,13 +90,13 @@ public class SeclectionState extends State implements InputProcessor {
 		click.play();
 		if (button == Input.Buttons.LEFT)
 			if (easy.click(screenX, screenY)) {
-				gsm.set(new Playstate(gsm, 10, 10, false, 0));
+				gsm.set(new Playstate(gsm, 10, 20, false, 0));
 				System.out.println("EASY");
 			} else if (normal.click(screenX, screenY)) {
 				gsm.set(new Playstate(gsm, 10, 30, false, 1));
 				System.out.println("NORMAL");
 			} else if (hard.click(screenX, screenY)) {
-				gsm.set(new Playstate(gsm, 10, 50, false, 2));
+				gsm.set(new Playstate(gsm, 10, 40, false, 2));
 				System.out.println("HARD");
 			} else if (freedom.click(screenX, screenY)) {
 				gsm.set(new Playstate(gsm, 10, 1000, true, 3));
